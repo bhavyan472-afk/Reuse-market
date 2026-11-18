@@ -1,56 +1,91 @@
 import Link from "next/link";
-import { LogoMark } from "@/components/shared/logo";
-import { CATEGORIES, SITE_TAGLINE } from "@/lib/constants";
+import { CATEGORIES } from "@/lib/constants";
 
+const EXPLORE = [
+  { href: "/marketplace", label: "Marketplace" },
+  { href: "/marketplace?view=map", label: "Map view" },
+  { href: "/sell", label: "Sell an item" },
+  { href: "/#how-it-works", label: "How it works" },
+];
+const ACCOUNT = [
+  { href: "/dashboard", label: "Seller dashboard" },
+  { href: "/messages", label: "Messages" },
+  { href: "/saved", label: "Saved items" },
+  { href: "/profile", label: "Profile" },
+];
+
+function FooterLink({ href, children }: { href: string; children: React.ReactNode }) {
+  return (
+    <Link href={href} className="link-underline rounded-[2px] text-sm text-muted-foreground outline-none hover:text-foreground focus-visible:text-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background">
+      {children}
+    </Link>
+  );
+}
+
+function ColumnTitle({ children }: { children: React.ReactNode }) {
+  return <h2 className="mb-5 font-sans text-[0.66rem] leading-none font-semibold tracking-[0.24em] text-gold-text uppercase">{children}</h2>;
+}
+
+/** Masthead-style footer: oversized serif wordmark, fine rules, ruled link columns, colophon. */
 export function SiteFooter() {
   const year = new Date().getFullYear();
   return (
-    <footer className="mt-28 border-t border-border bg-secondary/45 pb-24 md:pb-0">
-      <div className="container-page grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1.2fr_1fr] lg:py-16">
-        <div className="space-y-4">
-          <div className="flex items-center gap-2.5">
-            <LogoMark />
-            <span className="font-serif text-2xl">ReUse Market</span>
-          </div>
-          <p className="max-w-xs text-sm leading-relaxed text-muted-foreground">
-            {SITE_TAGLINE} A calmer way for students and neighbours to pass on things worth keeping.
+    <footer className="mt-12 border-t border-border bg-secondary/45 pb-24 md:pb-0">
+      <div className="container-page pt-16 sm:pt-24">
+        <div className="flex flex-col gap-6 border-b border-border pb-12 lg:flex-row lg:items-end lg:justify-between">
+          <p className="display text-[3.4rem] text-forest sm:text-[6rem] lg:text-[7.5rem]" aria-label="ReUse Market">
+            ReUse<span className="text-gold">.</span> <span className="font-normal italic">Market</span>
+          </p>
+          <p className="max-w-sm font-serif text-xl leading-snug text-muted-foreground italic lg:pb-4">
+            A calmer way for students and neighbours to pass on things worth keeping.
           </p>
         </div>
-        <div>
-          <h2 className="eyebrow mb-4 font-sans">Explore</h2>
-          <ul className="space-y-2.5 text-sm">
-            <li><Link className="text-muted-foreground hover:text-foreground" href="/marketplace">Marketplace</Link></li>
-            <li><Link className="text-muted-foreground hover:text-foreground" href="/marketplace?view=map">Map view</Link></li>
-            <li><Link className="text-muted-foreground hover:text-foreground" href="/sell">Sell an item</Link></li>
-            <li><Link className="text-muted-foreground hover:text-foreground" href="/#how-it-works">How it works</Link></li>
-          </ul>
-        </div>
-        <div>
-          <h2 className="eyebrow mb-4 font-sans">Categories</h2>
-          <ul className="grid grid-cols-2 gap-x-4 gap-y-2.5 text-sm">
-            {CATEGORIES.map((c) => (
-              <li key={c.value}>
-                <Link className="text-muted-foreground hover:text-foreground" href={`/marketplace?category=${c.value}`}>
-                  {c.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div>
-          <h2 className="eyebrow mb-4 font-sans">Account</h2>
-          <ul className="space-y-2.5 text-sm">
-            <li><Link className="text-muted-foreground hover:text-foreground" href="/dashboard">Seller dashboard</Link></li>
-            <li><Link className="text-muted-foreground hover:text-foreground" href="/messages">Messages</Link></li>
-            <li><Link className="text-muted-foreground hover:text-foreground" href="/saved">Saved items</Link></li>
-            <li><Link className="text-muted-foreground hover:text-foreground" href="/profile">Profile</Link></li>
-          </ul>
+
+        <div className="grid gap-12 py-14 sm:grid-cols-2 lg:grid-cols-12">
+          <div className="lg:col-span-3">
+            <ColumnTitle>Explore</ColumnTitle>
+            <ul className="space-y-3">
+              {EXPLORE.map((l) => (
+                <li key={l.href}>
+                  <FooterLink href={l.href}>{l.label}</FooterLink>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="lg:col-span-5">
+            <ColumnTitle>Categories</ColumnTitle>
+            <ul className="grid grid-cols-2 gap-x-6 gap-y-3 sm:grid-cols-3">
+              {CATEGORIES.map((c) => (
+                <li key={c.value}>
+                  <FooterLink href={`/marketplace?category=${c.value}`}>{c.label}</FooterLink>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="lg:col-span-2">
+            <ColumnTitle>Account</ColumnTitle>
+            <ul className="space-y-3">
+              {ACCOUNT.map((l) => (
+                <li key={l.href}>
+                  <FooterLink href={l.href}>{l.label}</FooterLink>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="lg:col-span-2">
+            <ColumnTitle>Good practice</ColumnTitle>
+            <ul className="space-y-3 text-sm text-muted-foreground">
+              <li>Meet in public places</li>
+              <li>Inspect before you pay</li>
+              <li>Never share OTPs</li>
+            </ul>
+          </div>
         </div>
       </div>
       <div className="border-t border-border">
-        <div className="container-page flex flex-col gap-2 py-6 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
-          <p>© {year} ReUse Market. Made for campuses and communities.</p>
-          <p>Meet in public places · Inspect before you pay · Never share OTPs</p>
+        <div className="container-page flex flex-col gap-2 py-6 text-[0.7rem] tracking-[0.14em] text-muted-foreground uppercase sm:flex-row sm:items-center sm:justify-between">
+          <p>© {year} ReUse Market</p>
+          <p>Made for campuses &amp; communities · Est. MMXXVI</p>
         </div>
       </div>
     </footer>

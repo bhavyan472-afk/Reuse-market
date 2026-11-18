@@ -70,7 +70,7 @@ export function MarketplaceShell({ filters, children }: { filters: MarketFilters
             onChange={(e) => setQ(e.target.value)}
             maxLength={100}
             placeholder="Search books, laptops, cycles…"
-            className="h-12 w-full rounded-full border border-border bg-card pr-28 pl-11 text-[0.95rem] transition-[border-color,box-shadow] outline-none placeholder:text-muted-foreground hover:border-foreground/25 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/25"
+            className="h-12 w-full rounded-[4px] border border-border bg-card pr-28 pl-11 text-[0.95rem] transition-[border-color,box-shadow] outline-none placeholder:text-muted-foreground hover:border-foreground/25 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/25"
           />
           <Button type="submit" size="sm" className="absolute top-1/2 right-2 h-9 -translate-y-1/2">
             Search
@@ -99,7 +99,7 @@ export function MarketplaceShell({ filters, children }: { filters: MarketFilters
           </Sheet>
 
           <Select value={filters.sort} onValueChange={(v) => void onSort(v as SortOption)}>
-            <SelectTrigger aria-label="Sort by" className="h-12 min-w-0 flex-1 rounded-full sm:min-w-44 lg:flex-none">
+            <SelectTrigger aria-label="Sort by" className="h-12 min-w-0 flex-1 rounded-[4px] sm:min-w-44 lg:flex-none">
               <SelectValue />
             </SelectTrigger>
             <SelectContent align="end">
@@ -111,13 +111,13 @@ export function MarketplaceShell({ filters, children }: { filters: MarketFilters
             </SelectContent>
           </Select>
 
-          <div role="group" aria-label="View" className="flex h-12 shrink-0 items-center rounded-full border border-border bg-card p-1">
+          <div role="group" aria-label="View" className="flex h-12 shrink-0 items-center rounded-[4px] border border-border bg-card p-1">
             <button
               type="button"
               aria-pressed={!isMap}
               onClick={() => update({ view: "list" }, { resetPage: false })}
               className={cn(
-                "flex h-full items-center gap-1.5 rounded-full px-3.5 text-sm transition-colors",
+                "flex h-full items-center gap-1.5 rounded-[3px] px-3.5 text-sm transition-colors",
                 !isMap ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground",
               )}
             >
@@ -128,7 +128,7 @@ export function MarketplaceShell({ filters, children }: { filters: MarketFilters
               aria-pressed={isMap}
               onClick={() => update({ view: "map" })}
               className={cn(
-                "flex h-full items-center gap-1.5 rounded-full px-3.5 text-sm transition-colors",
+                "flex h-full items-center gap-1.5 rounded-[3px] px-3.5 text-sm transition-colors",
                 isMap ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground",
               )}
             >
@@ -150,7 +150,7 @@ export function MarketplaceShell({ filters, children }: { filters: MarketFilters
                   aria-pressed={active}
                   onClick={() => update({ category: value })}
                   className={cn(
-                    "inline-flex h-9 items-center gap-1.5 rounded-full border px-3.5 text-[0.8rem] font-medium whitespace-nowrap transition-colors outline-none focus-visible:ring-3 focus-visible:ring-ring/40",
+                    "inline-flex h-9 items-center gap-1.5 rounded-[3px] border px-3.5 text-[0.8rem] font-medium whitespace-nowrap transition-colors outline-none focus-visible:ring-3 focus-visible:ring-ring/40",
                     active
                       ? "border-primary bg-primary text-primary-foreground"
                       : "border-border bg-card text-foreground hover:border-foreground/30",
@@ -172,7 +172,7 @@ export function MarketplaceShell({ filters, children }: { filters: MarketFilters
               <button
                 type="button"
                 onClick={() => update(c.clear)}
-                className="inline-flex h-8 items-center gap-1.5 rounded-full bg-sage-soft px-3 text-xs font-semibold text-brand transition-colors hover:bg-sage/40"
+                className="inline-flex h-8 items-center gap-1.5 rounded-[3px] bg-sage-soft px-3 text-xs font-semibold text-brand transition-colors hover:bg-sage/40"
                 aria-label={`Remove filter ${c.label}`}
               >
                 {c.label} <X className="size-3" />

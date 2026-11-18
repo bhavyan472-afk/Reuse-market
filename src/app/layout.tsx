@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Manrope, Playfair_Display } from "next/font/google";
+import { Cormorant_Garamond, Manrope } from "next/font/google";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { MobileNav } from "@/components/layout/mobile-nav";
 import { SiteHeader } from "@/components/layout/site-header";
@@ -12,7 +12,13 @@ import { getProfile, getUser } from "@/lib/supabase/server";
 import "./globals.css";
 
 const manrope = Manrope({ subsets: ["latin"], variable: "--font-manrope", display: "swap" });
-const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair", display: "swap" });
+const cormorant = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  style: ["normal", "italic"],
+  variable: "--font-cormorant",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(env.siteUrl),
@@ -32,8 +38,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#F7F5F0" },
-    { media: "(prefers-color-scheme: dark)", color: "#121411" },
+    { media: "(prefers-color-scheme: light)", color: "#F5F0E6" },
+    { media: "(prefers-color-scheme: dark)", color: "#13120F" },
   ],
   width: "device-width",
   initialScale: 1,
@@ -66,7 +72,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
 
   return (
     // Font variables live on <html> so `font-sans` on the root element can resolve them.
-    <html lang="en-IN" className={`${manrope.variable} ${playfair.variable}`} suppressHydrationWarning>
+    <html lang="en-IN" className={`${manrope.variable} ${cormorant.variable}`} suppressHydrationWarning>
       <body className="min-h-dvh">
         <AppProviders session={session} favoriteIds={favoriteIds} unreadTotal={unread} savedLocation={saved}>
           <div className="flex min-h-dvh flex-col">

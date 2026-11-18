@@ -19,7 +19,7 @@ export function pinIcon(scale = 1) {
     iconSize: [w, h],
     iconAnchor: [w / 2, h],
     popupAnchor: [0, -h + 4],
-    html: `<svg width="${w}" height="${h}" viewBox="0 0 30 40" aria-hidden="true"><path d="M15 1C7.3 1 1 7.2 1 14.9 1 25.3 15 39 15 39s14-13.7 14-24.1C29 7.2 22.7 1 15 1z" fill="#104B3B" stroke="#0B382D" stroke-width="1.5"/><circle cx="15" cy="15" r="5.5" fill="#B9945B"/></svg>`,
+    html: `<svg width="${w}" height="${h}" viewBox="0 0 30 40" aria-hidden="true"><path d="M15 1C7.3 1 1 7.2 1 14.9 1 25.3 15 39 15 39s14-13.7 14-24.1C29 7.2 22.7 1 15 1z" fill="#1E3A2F" stroke="#142821" stroke-width="1.5"/><circle cx="15" cy="15" r="5.5" fill="#A8834A"/></svg>`,
   });
 }
 

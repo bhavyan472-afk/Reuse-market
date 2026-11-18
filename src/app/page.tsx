@@ -1,4 +1,3 @@
-import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { Suspense } from "react";
 import { CategoryChips } from "@/components/home/category-chips";
@@ -9,6 +8,7 @@ import { SustainabilityStrip } from "@/components/home/sustainability-strip";
 import { ListingGrid, ListingGridSkeleton } from "@/components/listings/listing-grid";
 import { EmptyState } from "@/components/shared/empty-state";
 import { FadeIn } from "@/components/shared/fade-in";
+import { Accent, SectionHeading } from "@/components/shared/section-heading";
 import { Button } from "@/components/ui/button";
 import { isSupabaseConfigured } from "@/lib/env";
 import { getRecentListings } from "@/lib/queries";
@@ -48,42 +48,29 @@ export default function HomePage() {
     <>
       <Hero />
 
-      <div className="container-page space-y-20 pt-10 sm:space-y-28 sm:pt-12">
-        <section aria-labelledby="browse-categories">
-          <FadeIn>
-            <h2 id="browse-categories" className="sr-only">
-              Browse by category
-            </h2>
-            <CategoryChips />
-          </FadeIn>
+      <div className="container-page space-y-24 pt-20 pb-4 sm:space-y-32 sm:pt-28 sm:pb-6">
+        <section aria-labelledby="browse-categories" className="space-y-10">
+          <SectionHeading
+            id="browse-categories"
+            eyebrow="Browse the collection"
+            title={<>Shop by <Accent>category</Accent></>}
+            action={{ label: "Enter the marketplace", href: "/marketplace" }}
+          />
+          <CategoryChips />
         </section>
 
-        <section aria-labelledby="fresh-near-you" className="space-y-8">
-          <div className="flex items-end justify-between gap-4">
-            <div>
-              <p className="eyebrow">Close to home</p>
-              <h2 id="fresh-near-you" className="mt-2 font-serif text-3xl sm:text-4xl">
-                Fresh near you
-              </h2>
-            </div>
-          </div>
+        <section aria-labelledby="fresh-near-you" className="space-y-10">
+          <SectionHeading id="fresh-near-you" eyebrow="Close to home" title={<>Fresh <Accent>near you</Accent></>} />
           {isSupabaseConfigured ? <FreshNearYou /> : null}
         </section>
 
-        <section aria-labelledby="recently-listed" className="space-y-8">
-          <div className="flex items-end justify-between gap-4">
-            <div>
-              <p className="eyebrow">Just in</p>
-              <h2 id="recently-listed" className="mt-2 font-serif text-3xl sm:text-4xl">
-                Recently listed
-              </h2>
-            </div>
-            <Button asChild variant="outline" className="shrink-0">
-              <Link href="/marketplace">
-                View all <ArrowRight />
-              </Link>
-            </Button>
-          </div>
+        <section aria-labelledby="recently-listed" className="space-y-10">
+          <SectionHeading
+            id="recently-listed"
+            eyebrow="Just in"
+            title={<>Recently <Accent>listed</Accent></>}
+            action={{ label: "View all", href: "/marketplace" }}
+          />
           <Suspense fallback={<ListingGridSkeleton count={8} />}>
             <RecentlyListed />
           </Suspense>
@@ -91,24 +78,27 @@ export default function HomePage() {
 
         <HowItWorks />
 
-        <Suspense fallback={<div className="h-72 rounded-3xl bg-forest-deep" />}>
+        <Suspense fallback={<div className="h-80 rounded-[4px] bg-forest-deep" />}>
           <ImpactStrip />
         </Suspense>
 
-        <section className="rounded-3xl bg-secondary px-6 py-16 text-center sm:px-16 sm:py-20">
+        <section aria-labelledby="cta" className="relative border-y border-border py-20 text-center sm:py-28">
           <FadeIn>
             <p className="eyebrow">Ready when you are</p>
-            <h2 className="mx-auto mt-4 max-w-2xl font-serif text-[2rem] sm:text-5xl">
-              That calculator from first year deserves another semester.
+            <h2 id="cta" className="display mx-auto mt-6 max-w-3xl text-[2.6rem] text-forest sm:text-[4.2rem]">
+              That calculator from first year deserves <Accent>another semester.</Accent>
             </h2>
-            <div className="mt-8 flex flex-wrap justify-center gap-3">
-              <Button asChild size="lg">
-                <Link href="/sell">List an item — free</Link>
-              </Button>
-              <Button asChild size="lg" variant="outline">
-                <Link href="/marketplace?view=map">Explore the map</Link>
-              </Button>
-            </div>
+            <p className="mx-auto mt-6 max-w-md text-muted-foreground">
+              Listing is free and takes about two minutes. Buyers message you directly — no commission, ever.
+            </p>
+          </FadeIn>
+          <FadeIn delay={0.12} className="mt-10 flex flex-wrap justify-center gap-3">
+            <Button asChild size="lg" className="uppercase">
+              <Link href="/sell">List an item — free</Link>
+            </Button>
+            <Button asChild size="lg" variant="outline" className="uppercase">
+              <Link href="/marketplace?view=map">Explore the map</Link>
+            </Button>
           </FadeIn>
         </section>
       </div>

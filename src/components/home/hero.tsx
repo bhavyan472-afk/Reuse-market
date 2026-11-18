@@ -1,28 +1,31 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
 import { Loader2, LocateFixed, Search } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, type CSSProperties } from "react";
 import { toast } from "sonner";
 import { useViewerLocation } from "@/components/providers/location-provider";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { CATEGORIES, SITE_TAGLINE } from "@/lib/constants";
+import { CATEGORIES } from "@/lib/constants";
 import { buildMarketQuery } from "@/lib/search-params";
 import type { ListingCategory } from "@/lib/supabase/database.types";
 
-const COLLAGE = [
-  { src: "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&w=700&q=80", alt: "Silver laptop on a desk" },
-  { src: "https://images.unsplash.com/photo-1485965120184-e220f721d03e?auto=format&fit=crop&w=700&q=80", alt: "White single-speed bicycle" },
-  { src: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=700&q=80", alt: "Emerald velvet sofa" },
-  { src: "https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=700&q=80", alt: "Stack of books" },
-];
+const PLATE_MAIN = {
+  src: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=900&q=80",
+  alt: "An emerald velvet sofa in a sunlit room",
+};
+const PLATE_DETAIL = {
+  src: "https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=500&q=80",
+  alt: "A stack of well-read books",
+};
+
+/** Staggered entrance via CSS (starts at first paint, before hydration; reduced-motion safe). */
+const rise = (ms: number): CSSProperties => ({ ["--delay" as string]: `${ms}ms` });
 
 export function Hero() {
   const router = useRouter();
-  const reduce = useReducedMotion();
   const { location, requestLocation, locating } = useViewerLocation();
   const [q, setQ] = useState("");
   const [category, setCategory] = useState<ListingCategory | "all">("all");
@@ -50,55 +53,51 @@ export function Hero() {
     );
   };
 
-  const fade = (delay: number) =>
-    reduce
-      ? {}
-      : {
-          initial: { opacity: 0, y: 18 },
-          animate: { opacity: 1, y: 0 },
-          transition: { duration: 0.8, delay, ease: [0.22, 1, 0.36, 1] as const },
-        };
-
   return (
-    <section className="relative overflow-hidden border-b border-border/70">
-      <div className="container-page grid items-center gap-12 pt-10 pb-14 sm:pt-16 lg:grid-cols-[1.1fr_0.9fr] lg:gap-20 lg:pt-20 lg:pb-24">
-        <div>
-          <motion.p {...fade(0)} className="eyebrow">
+    // Pulled up under the (transparent) navbar so the hero band reads as one surface.
+    <section className="relative -mt-16 overflow-hidden border-b border-border bg-secondary/55 md:-mt-[72px]">
+      <div className="container-page grid gap-14 pt-28 pb-16 sm:pt-32 md:pt-40 lg:grid-cols-12 lg:gap-10 lg:pb-28">
+        {/* ------------------------------------------------ copy + search (cols 1–7) */}
+        <div className="lg:col-span-7 lg:pr-6">
+          <p className="eyebrow animate-rise" style={rise(0)}>
             The campus &amp; community resale house
-          </motion.p>
-          <motion.h1
-            {...fade(0.08)}
-            className="display mt-5 text-[2.6rem] text-balance sm:text-6xl lg:text-[4.5rem]"
-          >
-            {SITE_TAGLINE.replace(".", "")}
-            <span className="text-gold-text">.</span>
-          </motion.h1>
-          <motion.p {...fade(0.16)} className="mt-6 max-w-lg text-base leading-relaxed text-muted-foreground sm:text-[1.075rem]">
-            Thoughtfully pre-owned books, laptops, bicycles and furniture from students and neighbours nearby. Buy for
-            less, sell in minutes, and keep good things in use.
-          </motion.p>
+          </p>
 
-          <motion.form
-            {...fade(0.24)}
+          <h1 className="display mt-7 text-[3.15rem] text-forest sm:text-7xl lg:text-[6.4rem]">
+            <span className="block animate-rise" style={rise(120)}>
+              Give products
+            </span>
+            <span className="block animate-rise" style={rise(240)}>
+              a second <em className="font-normal text-gold italic">life.</em>
+            </span>
+          </h1>
+
+          <p className="mt-8 max-w-[34rem] animate-rise text-base leading-relaxed text-muted-foreground sm:text-[1.075rem]" style={rise(380)}>
+            Thoughtfully pre-owned books, laptops, bicycles and furniture from students and neighbours nearby. Buy for less,
+            sell in minutes, and keep good things in use.
+          </p>
+
+          <form
             onSubmit={submit}
             role="search"
             aria-label="Search listings"
-            className="mt-9 rounded-[22px] border border-border bg-card p-2 shadow-soft transition-shadow focus-within:shadow-lift"
+            className="mt-10 animate-rise rounded-[4px] border border-border bg-card p-2 shadow-soft transition-shadow duration-300 focus-within:shadow-lift"
+            style={rise(560)}
           >
-            <div className="grid gap-2 sm:grid-cols-[1fr_1fr_auto] sm:items-center">
-              <label className="relative flex items-center sm:col-span-3">
-                <span className="sr-only">What are you looking for?</span>
-                <Search className="pointer-events-none absolute left-4 size-[18px] text-muted-foreground" aria-hidden />
-                <input
-                  value={q}
-                  onChange={(e) => setQ(e.target.value)}
-                  placeholder="Try “MacBook”, “cycle”, “Grewal”…"
-                  maxLength={100}
-                  className="h-12 w-full rounded-full bg-transparent pr-4 pl-11 text-[0.95rem] outline-none placeholder:text-muted-foreground focus-visible:ring-3 focus-visible:ring-ring/40"
-                />
-              </label>
+            <label className="relative flex items-center border-b border-border">
+              <span className="sr-only">What are you looking for?</span>
+              <Search className="pointer-events-none absolute left-4 size-[18px] text-muted-foreground" aria-hidden />
+              <input
+                value={q}
+                onChange={(e) => setQ(e.target.value)}
+                placeholder="Try “MacBook”, “cycle”, “Grewal”…"
+                maxLength={100}
+                className="h-14 w-full bg-transparent pr-4 pl-12 text-[0.98rem] outline-none placeholder:text-muted-foreground focus-visible:ring-3 focus-visible:ring-ring/35"
+              />
+            </label>
+            <div className="grid gap-2 pt-2 sm:grid-cols-[1fr_1fr_auto]">
               <Select value={category} onValueChange={(v) => setCategory(v as ListingCategory | "all")}>
-                <SelectTrigger aria-label="Category" className="h-12 w-full justify-start rounded-full border-0 bg-secondary/70 [&>svg:last-child]:ml-auto">
+                <SelectTrigger aria-label="Category" className="h-12 w-full justify-start border-0 bg-secondary/70 [&>svg:last-child]:ml-auto">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -111,8 +110,8 @@ export function Hero() {
                 </SelectContent>
               </Select>
               <Select value={where} onValueChange={(v) => setWhere(v as "anywhere" | "near")}>
-                <SelectTrigger aria-label="Location" className="h-12 w-full justify-start rounded-full border-0 bg-secondary/70 [&>svg:last-child]:ml-auto">
-                  <LocateFixed className="size-4 text-brand" aria-hidden />
+                <SelectTrigger aria-label="Location" className="h-12 w-full justify-start border-0 bg-secondary/70 [&>svg:last-child]:ml-auto">
+                  <LocateFixed className="size-4 text-gold-text" aria-hidden />
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -120,50 +119,45 @@ export function Hero() {
                   <SelectItem value="near">Near me · 25 km</SelectItem>
                 </SelectContent>
               </Select>
-              <Button type="submit" size="lg" className="h-12" disabled={locating}>
+              <Button type="submit" size="lg" className="h-12 uppercase" disabled={locating}>
                 {locating ? <Loader2 className="animate-spin" /> : <Search />}
                 Search
               </Button>
             </div>
-          </motion.form>
+          </form>
 
-          <motion.dl {...fade(0.32)} className="mt-10 flex flex-wrap gap-x-10 gap-y-4 border-t border-border pt-6 text-sm">
-            <div>
-              <dt className="text-muted-foreground">Fee to list</dt>
-              <dd className="font-serif text-2xl">₹0</dd>
-            </div>
-            <div>
-              <dt className="text-muted-foreground">Typical saving</dt>
-              <dd className="font-serif text-2xl">40–70%</dd>
-            </div>
-            <div>
-              <dt className="text-muted-foreground">Payments</dt>
-              <dd className="font-serif text-2xl">In person</dd>
-            </div>
-          </motion.dl>
-        </div>
-
-        {/* product collage */}
-        <div aria-hidden className="relative mx-auto hidden w-full max-w-[520px] sm:block">
-          <div className="grid grid-cols-2 gap-4">
-            {COLLAGE.map((img, i) => (
-              <motion.div
-                key={img.src}
-                initial={reduce ? false : { opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.9, delay: 0.15 + i * 0.1, ease: [0.22, 1, 0.36, 1] }}
-                className={i % 2 === 1 ? "mt-12" : ""}
-              >
-                <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-secondary">
-                  <Image src={img.src} alt={img.alt} fill priority={i < 2} sizes="(min-width: 1024px) 260px, 45vw" className="object-cover" />
-                </div>
-              </motion.div>
+          <dl className="mt-11 grid max-w-xl animate-fade grid-cols-3 divide-x divide-border border-y border-border text-sm" style={rise(760)}>
+            {[
+              ["Fee to list", "₹0"],
+              ["Typical saving", "40–70%"],
+              ["Payments", "In person"],
+            ].map(([label, value]) => (
+              <div key={label} className="px-4 py-4 first:pl-0">
+                <dt className="text-[0.65rem] font-semibold tracking-[0.2em] text-muted-foreground uppercase">{label}</dt>
+                <dd className="mt-1.5 font-serif text-[1.65rem] leading-none text-forest">{value}</dd>
+              </div>
             ))}
-          </div>
-          <div className="absolute -bottom-5 left-1/2 flex w-max -translate-x-1/2 items-center gap-2 rounded-full border border-border bg-card px-5 py-2.5 text-sm shadow-soft">
-            <span className="size-1.5 rounded-full bg-gold" /> Fresh listings from verified students every day
-          </div>
+          </dl>
         </div>
+
+        {/* ------------------------------------------------ editorial plates (cols 8–12) */}
+        <figure aria-hidden className="relative mx-auto hidden w-full max-w-[460px] animate-fade sm:block lg:col-span-5 lg:mt-6" style={rise(200)}>
+          <div className="relative ml-auto w-[86%] border border-border bg-card p-3 shadow-soft">
+            <div className="relative aspect-[4/5] overflow-hidden bg-secondary">
+              <Image src={PLATE_MAIN.src} alt="" fill priority sizes="(min-width: 1024px) 400px, 70vw" className="object-cover" />
+            </div>
+            <figcaption className="flex items-baseline justify-between gap-3 pt-3 text-[0.7rem] text-muted-foreground">
+              <span className="font-semibold tracking-[0.22em] uppercase">Plate No. 04</span>
+              <span className="font-serif text-sm italic">Velvet, three-seater, much loved</span>
+            </figcaption>
+          </div>
+          <div className="absolute top-[46%] -left-2 w-[40%] border border-border bg-card p-2 shadow-lift sm:-left-6">
+            <div className="relative aspect-square overflow-hidden bg-secondary">
+              <Image src={PLATE_DETAIL.src} alt="" fill sizes="200px" className="object-cover" />
+            </div>
+          </div>
+          <span className="numeral absolute -top-7 left-[6%] text-[5.5rem] text-gold/70 select-none">№</span>
+        </figure>
       </div>
     </section>
   );

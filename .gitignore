@@ -45,3 +45,5 @@ next-env.d.ts
 
 # e2e artifacts
 /tests/e2e/shots/
+.vercel
+.env*

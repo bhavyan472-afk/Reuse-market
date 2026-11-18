@@ -125,32 +125,32 @@ export default async function ListingPage({ params }: Props) {
         <aside className="space-y-6 lg:sticky lg:top-24 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:self-start">
           <div className="rounded-3xl border border-border bg-card p-6 sm:p-8">
             <div className="flex flex-wrap items-center gap-2">
-              <Badge variant="outline" className="h-6 rounded-full px-2.5 text-muted-foreground"><Tag /> {categoryLabel(listing.category)}</Badge>
-              <Badge className="h-6 rounded-full bg-sage-soft px-2.5 text-brand">{condition?.label}</Badge>
-              {sold && <Badge className="h-6 rounded-full bg-foreground px-2.5 tracking-[0.2em] text-background uppercase">Sold</Badge>}
+              <Badge variant="outline" className="h-6 rounded-[3px] px-2.5 text-muted-foreground"><Tag /> {categoryLabel(listing.category)}</Badge>
+              <Badge className="h-6 rounded-[3px] bg-sage-soft px-2.5 text-brand">{condition?.label}</Badge>
+              {sold && <Badge className="h-6 rounded-[3px] bg-foreground px-2.5 tracking-[0.2em] text-background uppercase">Sold</Badge>}
             </div>
-            <h1 className="mt-4 font-serif text-[1.75rem] leading-[1.15] sm:text-[2.1rem]">{listing.title}</h1>
+            <h1 className="mt-5 font-serif text-[2rem] leading-[1.08] text-forest sm:text-[2.5rem]">{listing.title}</h1>
             <p className={`price mt-5 text-[2rem] leading-none sm:text-[2.25rem] ${sold ? "text-muted-foreground line-through decoration-2" : "text-brand"}`}>{formatPrice(listing.price)}</p>
             {condition && <p className="mt-1 text-sm text-muted-foreground">{condition.label}: {condition.hint.toLowerCase()}</p>}
 
             <dl className="mt-6 grid grid-cols-2 gap-4 border-y border-border py-5 text-sm">
               <div className="space-y-1">
-                <dt className="text-xs text-muted-foreground">Posted</dt>
+                <dt className="text-[0.62rem] font-semibold tracking-[0.2em] text-muted-foreground uppercase">Posted</dt>
                 <dd className="flex items-center gap-1.5">
                   <CalendarDays className="size-4 text-muted-foreground" aria-hidden />
                   <time dateTime={listing.created_at} suppressHydrationWarning>{timeAgo(listing.created_at)}</time>
                 </dd>
               </div>
               <div className="space-y-1">
-                <dt className="text-xs text-muted-foreground">Distance</dt>
+                <dt className="text-[0.62rem] font-semibold tracking-[0.2em] text-muted-foreground uppercase">Distance</dt>
                 <dd><DistanceLabel lat={listing.lat} lng={listing.lng} city={listing.city} className="text-sm text-foreground" /></dd>
               </div>
               <div className="space-y-1">
-                <dt className="text-xs text-muted-foreground">Views</dt>
+                <dt className="text-[0.62rem] font-semibold tracking-[0.2em] text-muted-foreground uppercase">Views</dt>
                 <dd className="flex items-center gap-1.5"><Eye className="size-4 text-muted-foreground" aria-hidden /> {listing.views.toLocaleString("en-IN")}</dd>
               </div>
               <div className="space-y-1">
-                <dt className="text-xs text-muted-foreground">Saved by</dt>
+                <dt className="text-[0.62rem] font-semibold tracking-[0.2em] text-muted-foreground uppercase">Saved by</dt>
                 <dd className="flex items-center gap-1.5"><Heart className="size-4 text-muted-foreground" aria-hidden /> {listing.favorites_count.toLocaleString("en-IN")}</dd>
               </div>
             </dl>
@@ -187,7 +187,7 @@ export default async function ListingPage({ params }: Props) {
             </div>
             <div className="mt-4 flex flex-wrap gap-2">
               {listing.seller.email_verified && <VerifiedBadge />}
-              <span className="inline-flex items-center gap-1 rounded-full bg-muted px-2 py-0.5 text-[0.7rem] font-medium">
+              <span className="inline-flex items-center gap-1 rounded-[3px] bg-muted px-2 py-0.5 text-[0.7rem] font-medium">
                 {listing.sellerActiveCount} active {listing.sellerActiveCount === 1 ? "listing" : "listings"}
               </span>
             </div>
@@ -210,14 +210,14 @@ export default async function ListingPage({ params }: Props) {
 
         <div className="min-w-0 space-y-10 lg:col-start-1 lg:row-start-2">
           <section aria-labelledby="desc" className="space-y-4">
-            <h2 id="desc" className="font-serif text-2xl">Description</h2>
+            <h2 id="desc" className="font-serif text-[2rem]">Description</h2>
             <p className="leading-relaxed whitespace-pre-line text-foreground/85">{listing.description}</p>
           </section>
 
           <section aria-labelledby="where" className="space-y-4">
             <div className="flex flex-wrap items-end justify-between gap-3">
               <div>
-                <h2 id="where" className="font-serif text-2xl">Where to meet</h2>
+                <h2 id="where" className="font-serif text-[2rem]">Where to meet</h2>
                 <p className="mt-1 flex items-start gap-1.5 text-sm text-muted-foreground">
                   <MapPin className="mt-0.5 size-4 shrink-0" aria-hidden /> {listing.address}
                 </p>

@@ -35,11 +35,11 @@ function compactPrice(p: number) {
 
 function priceIcon(listing: ListingCardData, active: boolean) {
   const tone = active
-    ? "background:#104B3B;color:#F7F5F0;border-color:#104B3B;transform:translate(-50%,calc(-100% - 6px)) scale(1.1);"
-    : "background:#FFFFFF;color:#292923;border-color:#DED8CD;transform:translate(-50%,calc(-100% - 6px));";
+    ? "background:#1E3A2F;color:#F5F0E6;border-color:#1E3A2F;transform:translate(-50%,calc(-100% - 6px)) scale(1.1);"
+    : "background:#FBF8F1;color:#1F1D1A;border-color:#D9D0BF;transform:translate(-50%,calc(-100% - 6px));";
   const sold = listing.status === "sold" ? "opacity:.6;text-decoration:line-through;" : "";
-  const tail = active ? "#104B3B" : "#FFFFFF";
-  const tailBorder = active ? "#104B3B" : "#DED8CD";
+  const tail = active ? "#1E3A2F" : "#FFFFFF";
+  const tailBorder = active ? "#1E3A2F" : "#D9D0BF";
   return L.divIcon({
     className: "reuse-price-marker",
     iconSize: [0, 0],
@@ -55,7 +55,7 @@ function clusterIcon(cluster: L.MarkerCluster) {
   return L.divIcon({
     className: "reuse-cluster-marker",
     iconSize: [size, size],
-    html: `<div aria-label="${count} listings" style="width:${size}px;height:${size}px;border-radius:9999px;display:flex;align-items:center;justify-content:center;background:#104B3B;color:#F7F5F0;font:700 13px/1 var(--font-sans);box-shadow:0 0 0 4px rgba(185,148,91,.45),0 8px 20px -6px rgba(0,0,0,.4);">${count}</div>`,
+    html: `<div aria-label="${count} listings" style="width:${size}px;height:${size}px;border-radius:9999px;display:flex;align-items:center;justify-content:center;background:#1E3A2F;color:#F5F0E6;font:700 13px/1 var(--font-sans);box-shadow:0 0 0 4px rgba(168,131,74,.45),0 8px 20px -6px rgba(0,0,0,.4);">${count}</div>`,
   });
 }
 
@@ -208,8 +208,8 @@ function MiniCard({ listing }: { listing: ListingCardData }) {
   const dist =
     listing.distance_km ?? (location ? haversineKm(location, { lat: listing.lat, lng: listing.lng }) : null);
   return (
-    <div className="w-[240px] overflow-hidden rounded-xl bg-[#FFFFFF] font-sans text-[#292923]">
-      <div className="relative aspect-[4/3] bg-[#EFEAE1]">
+    <div className="w-[240px] overflow-hidden rounded-xl bg-[#FBF8F1] font-sans text-[#1F1D1A]">
+      <div className="relative aspect-[4/3] bg-[#ECE5D7]">
         {listing.cover_url && (
           <Image src={listing.cover_url} alt={listing.title} fill sizes="240px" className="object-cover" />
         )}
@@ -225,12 +225,12 @@ function MiniCard({ listing }: { listing: ListingCardData }) {
       <div className="space-y-1 p-3">
         <p className="line-clamp-2 text-sm leading-snug font-medium">{listing.title}</p>
         <p className="price text-lg">{formatPrice(listing.price)}</p>
-        <p className="text-xs text-[#6B675F]">
+        <p className="text-xs text-[#6E675C]">
           {conditionLabel(listing.condition)} · {formatDistance(dist) ?? listing.city}
         </p>
         <Link
           href={`/listings/${listing.id}`}
-          className="mt-2 inline-flex h-8 w-full items-center justify-center rounded-full bg-[#104B3B] text-xs font-medium !text-[#F7F5F0] hover:bg-[#104B3B]/90"
+          className="mt-2 inline-flex h-8 w-full items-center justify-center rounded-full bg-[#1E3A2F] text-xs font-medium !text-[#F5F0E6] hover:bg-[#1E3A2F]/90"
         >
           View listing
         </Link>

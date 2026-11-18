@@ -181,7 +181,8 @@ async function login(page, who, next = "/") {
       await anon.getByRole("button", { name: /Zoom in/ }).waitFor();
       await anon.keyboard.press("Escape");
       await anon.getByRole("heading", { name: /More in Laptops/ }).waitFor();
-      assert(await anon.getByRole("link", { name: "View profile" }).isVisible(), "profile link");
+      // The lightbox briefly hides the page from the accessibility tree while it closes — wait, don't sample.
+      await anon.getByRole("link", { name: "View profile" }).waitFor({ timeout: 10000 });
     });
     await step("Privacy", "logged-out visitor sees no seller phone / Call / WhatsApp", async () => {
       await anon.getByRole("button", { name: /Chat with seller/ }).waitFor();
@@ -427,12 +428,17 @@ async function login(page, who, next = "/") {
       await buyer.goto(convUrl);
       await buyer.waitForTimeout(1500);
       await ready(buyer);
-      for (let i = 0; i < 7; i++) {
-        await buyer.fill("#chat-input", `burst ${i}`);
+      // Client blocks a 7th message within 10 s; the database blocks the 21st within a minute. Keep sending
+      // until one of them fires, so the check doesn't depend on how fast the server answers each send.
+      const warning = buyer.getByText(/sending messages very quickly|too quickly/).first();
+      let sent = 0;
+      for (; sent < 22 && !(await warning.isVisible().catch(() => false)); sent++) {
+        await buyer.fill("#chat-input", `burst ${sent}`);
         await buyer.press("#chat-input", "Enter");
         await buyer.waitForFunction(() => !document.querySelector('[aria-label="Sending"]'), null, { timeout: 8000 }).catch(() => {});
       }
-      await buyer.getByText(/sending messages very quickly|too quickly/).first().waitFor({ timeout: 10000 });
+      await warning.waitFor({ timeout: 10000 });
+      return `blocked after ${sent} rapid messages`;
     });
     await step("Reports", "buyer reports listing; duplicate refused", async () => {
       await buyer.goto(`${BASE}/listings/${listingId}`);

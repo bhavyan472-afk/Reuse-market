@@ -23,7 +23,7 @@ function Pill({ active, children, onClick }: { active: boolean; children: React.
       aria-pressed={active}
       onClick={onClick}
       className={cn(
-        "h-9 rounded-full border px-3.5 text-sm transition-colors outline-none focus-visible:ring-3 focus-visible:ring-ring/40",
+        "h-9 rounded-[3px] border px-3.5 text-sm transition-colors outline-none focus-visible:ring-3 focus-visible:ring-ring/40",
         active ? "border-primary bg-primary text-primary-foreground" : "border-border bg-card hover:border-foreground/25",
       )}
     >

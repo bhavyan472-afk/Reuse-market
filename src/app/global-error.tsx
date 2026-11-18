@@ -9,8 +9,8 @@ export default function GlobalError({ reset }: { error: Error & { digest?: strin
           minHeight: "100dvh",
           display: "grid",
           placeItems: "center",
-          background: "#F7F5F0",
-          color: "#292923",
+          background: "#F5F0E6",
+          color: "#1F1D1A",
           fontFamily: "Georgia, serif",
           textAlign: "center",
           padding: 24,
@@ -18,7 +18,7 @@ export default function GlobalError({ reset }: { error: Error & { digest?: strin
       >
         <div>
           <h1 style={{ fontSize: 44, fontWeight: 500, margin: 0 }}>ReUse Market is taking a breather.</h1>
-          <p style={{ fontFamily: "system-ui, sans-serif", color: "#6B675F", marginTop: 16 }}>
+          <p style={{ fontFamily: "system-ui, sans-serif", color: "#6E675C", marginTop: 16 }}>
             An unexpected error occurred. Please try again.
           </p>
           <button
@@ -29,8 +29,8 @@ export default function GlobalError({ reset }: { error: Error & { digest?: strin
               padding: "12px 28px",
               borderRadius: 999,
               border: 0,
-              background: "#104B3B",
-              color: "#F7F5F0",
+              background: "#1E3A2F",
+              color: "#F5F0E6",
               fontSize: 15,
               cursor: "pointer",
             }}

@@ -3,7 +3,7 @@
 import { Heart, LayoutDashboard, LogOut, MessageCircle, Plus, User } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { toast } from "sonner";
 import { Logo } from "@/components/shared/logo";
 import { UserAvatar } from "@/components/shared/user-avatar";
@@ -48,6 +48,15 @@ export function SiteHeader() {
   const pathname = usePathname();
   const router = useRouter();
   const [pending, startTransition] = useTransition();
+  // Transparent over the home hero; solid with blur once the page scrolls.
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+  const overHero = pathname === "/" && !scrolled;
 
   const handleSignOut = () =>
     startTransition(async () => {
@@ -62,26 +71,29 @@ export function SiteHeader() {
     });
 
   return (
-    <header className="glass sticky top-0 z-40 border-b border-border/70">
+    <header
+      data-over-hero={overHero || undefined}
+      className={cn(
+        "sticky top-0 z-40 border-b transition-[background-color,border-color,backdrop-filter] duration-300 ease-out",
+        overHero ? "border-transparent bg-transparent" : "glass border-border/80",
+      )}
+    >
       <a
         href="#main"
         className="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-50 focus:rounded-full focus:bg-card focus:px-4 focus:py-2 focus:shadow-soft"
       >
         Skip to content
       </a>
-      <div className="container-page flex h-16 items-center justify-between gap-4">
-        <div className="flex items-center gap-8">
+      <div className="container-page flex h-16 items-center justify-between gap-4 md:h-[72px]">
+        <div className="flex items-center gap-10">
           <Logo />
-          <nav aria-label="Primary" className="hidden items-center gap-1 md:flex">
+          <nav aria-label="Primary" className="hidden items-center gap-7 md:flex">
             {NAV.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
                 aria-current={pathname.startsWith(item.href) && item.href !== "/#how-it-works" ? "page" : undefined}
-                className={cn(
-                  "relative rounded-full px-3.5 py-2 text-sm font-medium text-muted-foreground transition-colors outline-none hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/40",
-                  "aria-[current=page]:text-foreground aria-[current=page]:after:absolute aria-[current=page]:after:inset-x-3.5 aria-[current=page]:after:-bottom-[13px] aria-[current=page]:after:h-px aria-[current=page]:after:bg-foreground",
-                )}
+                className="link-underline rounded-[2px] py-1 text-[0.72rem] font-semibold tracking-[0.18em] text-muted-foreground uppercase outline-none hover:text-foreground focus-visible:text-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background aria-[current=page]:text-foreground"
               >
                 {item.label}
               </Link>

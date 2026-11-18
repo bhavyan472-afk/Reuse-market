@@ -20,8 +20,9 @@
 -- -----------------------------------------------------------------------------
 -- 1. Column-level read access on profiles
 -- -----------------------------------------------------------------------------
--- Remove the table-wide SELECT privilege from the two API roles…
-revoke select on public.profiles from anon, authenticated;
+-- Remove the table-wide SELECT privilege from the two API roles (and from PUBLIC, in case a
+-- project granted it that way — PUBLIC is inherited by every role)…
+revoke select on public.profiles from anon, authenticated, public;
 
 -- …and give back SELECT on the columns that are already shown publicly in the app
 -- (seller card, public profile page, chat headers). Private columns are left out:

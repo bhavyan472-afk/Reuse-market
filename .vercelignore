@@ -1,0 +1,20 @@
+# Never upload local secrets or machine-specific files to Vercel.
+# Environment variables are configured in the Vercel project settings instead.
+.env
+.env.*
+!.env.example
+*.pem
+
+# Dependencies and build output (Vercel installs and builds remotely)
+node_modules
+.next
+out
+build
+*.tsbuildinfo
+next-env.d.ts
+
+# Local tooling / test artifacts
+.git
+.vercel
+tests/e2e/shots
+coverage

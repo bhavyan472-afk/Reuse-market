@@ -40,7 +40,7 @@ export function FavoriteButton({
       <Heart
         className={cn(
           "size-[18px] transition-[color,fill,transform] duration-200",
-          saved ? "scale-110 fill-[#B4532A] text-[#B4532A]" : "group-hover/fav:text-[#B4532A]",
+          saved ? "scale-110 fill-[#9C5B3F] text-[#9C5B3F]" : "group-hover/fav:text-[#9C5B3F]",
         )}
         aria-hidden
       />
