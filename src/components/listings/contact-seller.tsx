@@ -97,24 +97,36 @@ export function ContactSeller({
     <div className="space-y-3">
       {!isOwner && (
         <>
-          <Button size="lg" className="w-full" onClick={chat} disabled={pending}>
-            {pending ? <Loader2 className="animate-spin" /> : <MessageCircle />}
-            {sold ? "Message seller (sold)" : "Chat with seller"}
-          </Button>
-          {digits && (
-            <div className="grid grid-cols-2 gap-3">
-              <Button asChild size="lg" variant="outline">
-                <a href={`tel:+${digits}`}>
-                  <Phone /> Call
-                </a>
-              </Button>
-              <Button asChild size="lg" variant="outline">
+          <div className={digits ? "grid grid-cols-2 gap-2.5" : undefined}>
+            <Button size="lg" className="w-full px-4" onClick={chat} disabled={pending}>
+              {pending ? <Loader2 className="animate-spin" /> : <MessageCircle />}
+              {sold ? (
+                <>
+                  Message<span className="sr-only"> seller (sold)</span>
+                </>
+              ) : (
+                <>
+                  Chat<span className="sr-only"> with seller</span>
+                </>
+              )}
+            </Button>
+            {digits && (
+              <Button asChild size="lg" variant="secondary" className="w-full px-4">
                 <a href={`https://wa.me/${digits}?text=${encodeURIComponent(waText)}`} target="_blank" rel="noopener noreferrer">
-                  <WhatsAppIcon className="size-4 text-[#25D366]" /> WhatsApp
+                  <WhatsAppIcon className="size-[18px] text-[#128C7E]" /> WhatsApp
                 </a>
               </Button>
-            </div>
-          )}
+            )}
+          </div>
+          {digits ? (
+            <Button asChild variant="outline" className="w-full">
+              <a href={`tel:+${digits}`}>
+                <Phone /> Call seller
+              </a>
+            </Button>
+          ) : !userId ? (
+            <p className="text-center text-xs text-muted-foreground">Sign in to see WhatsApp and call options, if the seller shared a number.</p>
+          ) : null}
         </>
       )}
       <div className="flex flex-wrap items-center justify-center gap-1 border-t border-border pt-3">

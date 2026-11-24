@@ -2,7 +2,7 @@ import { TriangleAlert } from "lucide-react";
 
 export function SetupNotice() {
   return (
-    <div role="alert" className="border-b border-gold/40 bg-accent/60">
+    <div role="alert" className="border-b border-saffron/40 bg-saffron-tint">
       <div className="container-page flex items-start gap-3 py-3 text-sm">
         <TriangleAlert className="mt-0.5 size-4 shrink-0 text-gold-text" aria-hidden />
         <p>

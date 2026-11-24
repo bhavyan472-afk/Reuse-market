@@ -9,7 +9,7 @@ export default function ErrorPage({ error, reset }: { error: Error & { digest?: 
   return (
     <div className="container-page flex min-h-[70dvh] flex-col items-center justify-center py-20 text-center">
       <p className="eyebrow">Something went wrong</p>
-      <h1 className="mt-4 font-serif text-5xl tracking-tight sm:text-6xl">A small hiccup.</h1>
+      <h1 className="mt-4 text-4xl font-extrabold tracking-tight sm:text-5xl">A small hiccup.</h1>
       <p className="mt-6 max-w-md text-muted-foreground">
         {offline
           ? "You appear to be offline. Check your connection and try again."

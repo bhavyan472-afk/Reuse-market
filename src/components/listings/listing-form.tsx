@@ -127,7 +127,7 @@ export function ListingForm({
     <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-10">
       <section className="space-y-6 rounded-3xl border border-border bg-card p-6 sm:p-8">
         <div>
-          <h2 className="font-serif text-2xl">Photos</h2>
+          <h2 className="text-xl font-bold">Photos</h2>
           <p className="mt-1 text-sm text-muted-foreground">Bright, honest photos sell faster. Add up to six.</p>
         </div>
         <Controller
@@ -147,7 +147,7 @@ export function ListingForm({
       </section>
 
       <section className="space-y-6 rounded-3xl border border-border bg-card p-6 sm:p-8">
-        <h2 className="font-serif text-2xl">Details</h2>
+        <h2 className="text-xl font-bold">Details</h2>
         <Field label="Title" htmlFor="title" error={errors.title?.message} hint="e.g. “Casio fx-991EX scientific calculator”">
           <Input
             id="title"
@@ -181,7 +181,7 @@ export function ListingForm({
           </Field>
           <Field label="Price" htmlFor="price" error={errors.price?.message} hint="Whole rupees. Enter 0 to give it away free.">
             <div className="relative">
-              <span className="pointer-events-none absolute top-1/2 left-3.5 -translate-y-1/2 font-serif text-lg text-muted-foreground">₹</span>
+              <span className="pointer-events-none absolute top-1/2 left-3.5 -translate-y-1/2 text-lg font-semibold text-muted-foreground">₹</span>
               <Input
                 id="price"
                 type="number"
@@ -247,7 +247,7 @@ export function ListingForm({
 
       <section className="space-y-6 rounded-3xl border border-border bg-card p-6 sm:p-8">
         <div>
-          <h2 className="font-serif text-2xl">Meeting point</h2>
+          <h2 className="text-xl font-bold">Meeting point</h2>
           <p className="mt-1 text-sm text-muted-foreground">
             Buyers see this pin and can get directions. Choose a public spot you&apos;re comfortable with.
           </p>

@@ -84,7 +84,7 @@ export function InboxList({ conversations, activeId }: { conversations: Conversa
                     {c.last_message_preview ?? "No messages yet — say hello"}
                   </p>
                   {unread > 0 && (
-                    <span className="grid min-w-5 shrink-0 place-items-center rounded-full bg-gold px-1.5 text-[10px] leading-5 font-semibold text-ink">
+                    <span className="grid min-w-5 shrink-0 place-items-center rounded-full bg-saffron px-1.5 text-[10px] leading-5 font-bold text-saffron-foreground">
                       {unread}
                     </span>
                   )}

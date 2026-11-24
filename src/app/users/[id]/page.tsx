@@ -33,7 +33,7 @@ export default async function PublicProfilePage({ params }: Props) {
         <UserAvatar name={profile.full_name} src={profile.avatar_url} className="size-24 text-3xl" />
         <div className="min-w-0 space-y-3">
           <div className="flex flex-wrap items-center gap-3">
-            <h1 className="font-serif text-4xl">{profile.full_name || "ReUse member"}</h1>
+            <h1 className="text-3xl font-extrabold">{profile.full_name || "ReUse member"}</h1>
             {profile.email_verified && <VerifiedBadge />}
           </div>
           <ul className="flex flex-wrap gap-x-5 gap-y-2 text-sm text-muted-foreground">
@@ -46,7 +46,7 @@ export default async function PublicProfilePage({ params }: Props) {
       </section>
 
       <section className="mt-12 space-y-6" aria-labelledby="active-listings">
-        <h2 id="active-listings" className="font-serif text-3xl">
+        <h2 id="active-listings" className="text-2xl font-bold">
           Active listings <span className="text-muted-foreground">({active.total})</span>
         </h2>
         {active.items.length ? (
@@ -58,7 +58,7 @@ export default async function PublicProfilePage({ params }: Props) {
 
       {soldItems.length > 0 && (
         <section className="mt-16 space-y-6" aria-labelledby="sold-listings">
-          <h2 id="sold-listings" className="font-serif text-2xl text-muted-foreground">
+          <h2 id="sold-listings" className="text-xl font-bold text-muted-foreground">
             Recently sold
           </h2>
           <ListingGrid listings={soldItems} />

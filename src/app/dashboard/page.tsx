@@ -61,13 +61,13 @@ export default async function DashboardPage() {
             <dt className="flex items-center gap-2 text-xs text-muted-foreground">
               <s.icon className="size-4 text-gold-text" aria-hidden /> {s.label}
             </dt>
-            <dd className="mt-2 font-serif text-3xl">{s.value.toLocaleString("en-IN")}</dd>
+            <dd className="numeral mt-2 text-3xl">{s.value.toLocaleString("en-IN")}</dd>
           </div>
         ))}
       </dl>
 
       <section aria-labelledby="my-listings" className="mt-12">
-        <h2 id="my-listings" className="mb-5 font-serif text-2xl">
+        <h2 id="my-listings" className="mb-5 text-xl font-bold">
           My listings
         </h2>
         {listings.length === 0 ? (

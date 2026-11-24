@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Cormorant_Garamond, Manrope } from "next/font/google";
+import { Plus_Jakarta_Sans } from "next/font/google";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { MobileNav } from "@/components/layout/mobile-nav";
 import { SiteHeader } from "@/components/layout/site-header";
@@ -11,12 +11,10 @@ import { getFavoriteIds, getUnreadTotal } from "@/lib/queries";
 import { getProfile, getUser } from "@/lib/supabase/server";
 import "./globals.css";
 
-const manrope = Manrope({ subsets: ["latin"], variable: "--font-manrope", display: "swap" });
-const cormorant = Cormorant_Garamond({
+const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  style: ["normal", "italic"],
-  variable: "--font-cormorant",
+  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-jakarta",
   display: "swap",
 });
 
@@ -38,8 +36,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#F5F0E6" },
-    { media: "(prefers-color-scheme: dark)", color: "#13120F" },
+    { media: "(prefers-color-scheme: light)", color: "#FAF8F4" },
+    { media: "(prefers-color-scheme: dark)", color: "#121412" },
   ],
   width: "device-width",
   initialScale: 1,
@@ -72,7 +70,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
 
   return (
     // Font variables live on <html> so `font-sans` on the root element can resolve them.
-    <html lang="en-IN" className={`${manrope.variable} ${cormorant.variable}`} suppressHydrationWarning>
+    <html lang="en-IN" className={jakarta.variable} suppressHydrationWarning>
       <body className="min-h-dvh">
         <AppProviders session={session} favoriteIds={favoriteIds} unreadTotal={unread} savedLocation={saved}>
           <div className="flex min-h-dvh flex-col">

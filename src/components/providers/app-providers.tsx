@@ -23,7 +23,7 @@ export function AppProviders({
   savedLocation: { lat: number; lng: number } | null;
 }) {
   return (
-    <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+    <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false} disableTransitionOnChange>
       <TooltipProvider delayDuration={200}>
         <SessionProvider value={session}>
           <LocationProvider savedLocation={savedLocation}>

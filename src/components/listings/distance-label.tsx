@@ -27,7 +27,7 @@ export function DistanceLabel({
   const km = viewer ? haversineKm(viewer, { lat, lng }) : (serverDistanceKm ?? null);
   const dist = formatDistance(km);
   return (
-    <span className={cn("inline-flex min-w-0 items-center gap-1 text-xs text-muted-foreground", className)}>
+    <span className={cn("inline-flex min-w-0 max-w-full items-center gap-1 text-xs text-muted-foreground", className)}>
       <MapPin className="size-3.5 shrink-0" aria-hidden />
       <span className="truncate">{dist ? `${dist} · ${city}` : city}</span>
     </span>

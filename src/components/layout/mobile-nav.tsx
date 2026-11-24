@@ -40,17 +40,17 @@ export function MobileNav() {
                 href={item.href}
                 aria-current={item.active ? "page" : undefined}
                 className={cn(
-                  "flex flex-col items-center gap-1 rounded-xl px-2 py-1 text-[0.65rem] font-medium transition-colors",
-                  item.active ? "text-foreground" : "text-muted-foreground",
+                  "flex min-h-11 min-w-11 flex-col items-center justify-center gap-1 rounded-xl px-2 py-1 text-[0.68rem] font-medium transition-colors outline-none focus-visible:ring-3 focus-visible:ring-ring/40",
+                  item.active ? "font-semibold text-primary" : "text-muted-foreground",
                 )}
               >
                 {item.primary ? (
-                  <span className="-mt-5 grid size-12 place-items-center rounded-full bg-primary text-primary-foreground shadow-soft ring-4 ring-background transition-colors active:bg-forest-deep">
+                  <span className="-mt-5 grid size-12 place-items-center rounded-full bg-saffron text-saffron-foreground shadow-lift ring-4 ring-card transition-colors active:bg-saffron-hover">
                     <Icon className="size-5" />
                   </span>
                 ) : (
                   <span className="relative">
-                    <Icon className={cn("size-5", item.active && "text-brand")} />
+                    <Icon className="size-5" strokeWidth={item.active ? 2.25 : 1.75} />
                     {item.badge ? <UnreadDot count={item.badge} /> : null}
                   </span>
                 )}

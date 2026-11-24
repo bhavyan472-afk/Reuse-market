@@ -71,7 +71,7 @@ export function MapSplitView({ listings, total }: { listings: ListingCardData[];
                   <div className="relative size-20 shrink-0 overflow-hidden rounded-xl bg-muted">
                     {l.cover_url && <Image src={l.cover_url} alt="" fill sizes="80px" className="object-cover" />}
                     {l.status === "sold" && (
-                      <span className="absolute inset-x-0 bottom-0 bg-gold py-0.5 text-center text-[9px] font-semibold tracking-widest text-ink">
+                      <span className="absolute inset-x-0 bottom-0 bg-saffron py-0.5 text-center text-[10px] font-bold text-saffron-foreground">
                         SOLD
                       </span>
                     )}

@@ -57,7 +57,7 @@ export function RegisterForm({ next }: { next: string }) {
         <span className="mx-auto grid size-14 place-items-center rounded-2xl bg-accent text-gold-text">
           <MailCheck className="size-6" />
         </span>
-        <h2 className="font-serif text-2xl">Check your inbox</h2>
+        <h2 className="text-xl font-bold">Check your inbox</h2>
         <p className="text-sm leading-relaxed text-muted-foreground">
           We sent a confirmation link to <strong className="text-foreground">{sentTo}</strong>. Open it on this device to
           activate your account, then you&apos;ll be signed in automatically.

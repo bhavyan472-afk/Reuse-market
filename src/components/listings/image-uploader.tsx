@@ -265,7 +265,7 @@ function SortableThumb({
       <Image src={item.url} alt={`Photo ${index + 1}`} fill sizes="200px" className="object-cover" unoptimized={item.url.startsWith("blob:")} />
 
       {index === 0 && (
-        <span className="absolute top-2 left-2 rounded-full bg-gold px-2 py-0.5 text-[10px] font-semibold tracking-wider text-ink">COVER</span>
+        <span className="absolute top-2 left-2 rounded-full bg-saffron px-2 py-0.5 text-[10px] font-bold text-saffron-foreground">Cover</span>
       )}
 
       <button
@@ -301,7 +301,7 @@ function SortableThumb({
       </div>
 
       {item.status === "uploading" && (
-        <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-ink/45 text-ivory">
+        <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-black/45 text-white">
           <Loader2 className="size-6 animate-spin" />
           <div className="h-1 w-2/3 overflow-hidden rounded-full bg-white/30">
             <div className="h-full bg-gold transition-all" style={{ width: `${item.progress}%` }} />

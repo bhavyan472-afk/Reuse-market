@@ -30,7 +30,7 @@ export default async function MessagesPage() {
           </div>
           <div className="hidden flex-col items-center justify-center gap-3 p-10 text-center text-muted-foreground lg:flex">
             <MessagesSquare className="size-10 text-gold" aria-hidden />
-            <p className="font-serif text-2xl text-foreground">Select a conversation</p>
+            <p className="text-xl font-bold text-foreground">Select a conversation</p>
             <p className="max-w-xs text-sm">Pick a chat on the left to read and reply. New messages arrive instantly.</p>
           </div>
         </div>

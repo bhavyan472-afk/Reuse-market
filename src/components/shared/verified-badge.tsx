@@ -5,7 +5,7 @@ export function VerifiedBadge({ className, label = "Verified email" }: { classNa
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1 rounded-full bg-primary/8 px-2 py-0.5 text-[0.7rem] font-medium text-brand",
+        "inline-flex items-center gap-1 rounded-full bg-green-tint px-2 py-0.5 text-[0.72rem] font-semibold text-primary",
         className,
       )}
       title="This member has confirmed their email address"

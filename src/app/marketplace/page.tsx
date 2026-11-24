@@ -54,10 +54,10 @@ async function Results({ filters }: { filters: MarketFilters }) {
   const from = (filters.page - 1) * PAGE_SIZE + 1;
   return (
     <div>
-      <p className="mb-5 text-sm text-muted-foreground" aria-live="polite">
+      <p className="mb-4 text-sm font-medium text-muted-foreground" aria-live="polite">
         {total === 1 ? "1 listing" : `${from}–${from + items.length - 1} of ${total.toLocaleString("en-IN")} listings`}
       </p>
-      <ListingGrid listings={items} priorityCount={3} className="xl:grid-cols-3" />
+      <ListingGrid listings={items} priorityCount={4} />
       <Pagination filters={filters} totalPages={totalPages} />
     </div>
   );
@@ -79,31 +79,30 @@ function ResultsSkeleton({ map }: { map: boolean }) {
       <div className="grid gap-5 lg:grid-cols-[minmax(320px,400px)_1fr]">
         <div className="order-2 space-y-3 lg:order-1">
           {Array.from({ length: 5 }, (_, i) => (
-            <Skeleton key={i} className="h-24 rounded-2xl" />
+            <Skeleton key={i} className="h-24 rounded-card" />
           ))}
         </div>
-        <Skeleton className="order-1 h-[55vh] rounded-3xl lg:order-2 lg:h-[calc(100dvh-12rem)]" />
+        <Skeleton className="order-1 h-[55vh] rounded-card lg:order-2 lg:h-[calc(100dvh-12rem)]" />
       </div>
     );
   }
   return (
     <div>
       <Skeleton className="mb-5 h-4 w-40" />
-      <ListingGridSkeleton count={9} className="xl:grid-cols-3" />
+      <ListingGridSkeleton count={8} />
     </div>
   );
 }
 
 export default async function MarketplacePage({ searchParams }: Props) {
   const filters = parseMarketFilters(await searchParams);
-  const heading = filters.category ? categoryLabel(filters.category) : "The Marketplace";
+  const heading = filters.category ? `Pre-owned ${categoryLabel(filters.category).toLowerCase()}` : "Marketplace";
 
   return (
-    <div className="container-page py-10 sm:py-14">
+    <div className="container-page py-6 sm:py-10">
       <PageHeader
-        eyebrow="Browse"
         title={heading}
-        description="Pre-owned, well-kept and close by. Filter by price, condition and distance — or switch to the map."
+        description="Well-kept, budget-friendly and close by. Cheapest first — filter by budget, condition and distance."
       />
       <MarketplaceShell filters={filters}>
         <Suspense key={JSON.stringify(filters)} fallback={<ResultsSkeleton map={filters.view === "map"} />}>

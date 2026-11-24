@@ -50,12 +50,23 @@ export const REPORT_REASONS: { value: ReportReason; label: string }[] = [
 ];
 
 export const SORT_OPTIONS = [
-  { value: "newest", label: "Newest" },
   { value: "price_asc", label: "Price: low to high" },
+  { value: "newest", label: "Newest first" },
   { value: "price_desc", label: "Price: high to low" },
   { value: "nearest", label: "Nearest" },
 ] as const;
 export type SortOption = (typeof SORT_OPTIONS)[number]["value"];
+/** Budget-first: the marketplace sorts by price (low → high) unless the shopper picks otherwise. */
+export const DEFAULT_SORT: SortOption = "price_asc";
+
+/** Budget bands shown as quick price chips (homepage + marketplace filters). */
+export const BUDGETS: { label: string; min: number | null; max: number | null }[] = [
+  { label: "Under ₹500", min: null, max: 500 },
+  { label: "₹500–2,000", min: 500, max: 2000 },
+  { label: "₹2,000–8,000", min: 2000, max: 8000 },
+  { label: "₹8,000–20,000", min: 8000, max: 20000 },
+  { label: "₹20,000+", min: 20000, max: null },
+];
 
 export const DISTANCE_OPTIONS = [5, 10, 25, 50] as const;
 

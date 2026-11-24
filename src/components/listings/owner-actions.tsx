@@ -96,7 +96,7 @@ export function OwnerActions({
       <AlertDialog open={confirmOpen} onOpenChange={setConfirmOpen}>
         <AlertDialogContent className="rounded-3xl">
           <AlertDialogHeader>
-            <AlertDialogTitle className="font-serif text-2xl font-normal">Delete this listing?</AlertDialogTitle>
+            <AlertDialogTitle className="text-xl font-bold">Delete this listing?</AlertDialogTitle>
             <AlertDialogDescription>
               “{title}” and all of its photos will be permanently removed. Conversations about it will also be deleted. This
               can&apos;t be undone.

@@ -180,7 +180,7 @@ export function ChatThread({
       <div className="min-h-0 flex-1 overflow-y-auto px-4 py-4" aria-live="polite" aria-label="Messages">
         {messages.length === 0 && (
           <div className="mx-auto mt-10 max-w-xs text-center text-sm text-muted-foreground">
-            <p className="font-serif text-xl text-foreground">Start the conversation</p>
+            <p className="text-lg font-bold text-foreground">Start the conversation</p>
             <p className="mt-2">Ask if it&apos;s still available, check the condition, or suggest a time and place to meet.</p>
           </div>
         )}

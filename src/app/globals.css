@@ -4,12 +4,21 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* =============================================================================
+   ReUse Market — "Warm Minimal Marketplace" design tokens
+   Every colour, radius, shadow and font lives here as a CSS variable and is
+   exposed to Tailwind through @theme (Tailwind v4 has no tailwind.config).
+   ============================================================================= */
 @theme inline {
+  /* type */
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  /* Legacy aliases: older screens use font-serif / font-heading; both now resolve to Plus Jakarta Sans. */
+  --font-serif: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+
+  /* shadcn semantic colours */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
-  --font-serif: var(--font-cormorant), "Cormorant Garamond", ui-serif, Georgia, serif;
-  --font-heading: var(--font-cormorant), "Cormorant Garamond", ui-serif, Georgia, serif;
   --color-ring: var(--ring);
   --color-input: var(--input);
   --color-border: var(--border);
@@ -26,112 +35,132 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
-  /* brand tokens */
-  --color-ivory: var(--ivory);
-  --color-ink: var(--ink);
-  --color-emerald: var(--emerald);
-  --color-forest: var(--emerald);
-  --color-brand: var(--brand-text);
-  --color-gold: var(--gold);
-  --color-gold-text: var(--gold-text);
-  --color-sage: var(--sage);
-  --color-sage-soft: var(--sage-soft);
-  --color-forest-deep: var(--forest-deep);
-  --color-paper: var(--paper);
+
+  /* brand */
+  --color-primary-hover: var(--primary-hover);
+  --color-green-tint: var(--green-tint);
+  --color-green-soft: var(--green-soft);
+  --color-saffron: var(--saffron);
+  --color-saffron-hover: var(--saffron-hover);
+  --color-saffron-foreground: var(--saffron-foreground);
+  --color-saffron-ink: var(--saffron-ink); /* AA-safe saffron for text (prices) */
+  --color-saffron-tint: var(--saffron-tint);
   --color-success: var(--success);
-  --radius-sm: calc(var(--radius) * 0.5);
-  --radius-md: calc(var(--radius) * 0.75);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.25);
-  --radius-2xl: calc(var(--radius) * 1.5);
-  --radius-3xl: calc(var(--radius) * 2);
-  --radius-4xl: calc(var(--radius) * 2.5);
-  /* Restrained elevation: surfaces are flat by default; shadows are reserved for floating UI and hover. */
-  /* Restrained elevation: surfaces are flat; shadows only for floating UI and hover. */
-  --shadow-soft: 0 1px 2px rgb(31 29 26 / 0.04), 0 8px 18px -12px rgb(31 29 26 / 0.14);
-  --shadow-lift: 0 1px 2px rgb(31 29 26 / 0.05), 0 22px 44px -22px rgb(31 29 26 / 0.26);
-  /* Motion tokens — transform/opacity only. */
+
+  /* Legacy aliases (kept so every existing screen re-skins without a rewrite) */
+  --color-ivory: var(--background);
+  --color-paper: var(--background);
+  --color-ink: var(--foreground);
+  --color-emerald: var(--primary);
+  --color-forest: var(--primary);
+  --color-forest-deep: var(--primary-hover);
+  --color-brand: var(--primary);
+  --color-gold: var(--saffron);
+  --color-gold-text: var(--saffron-ink);
+  --color-sage: var(--green-soft);
+  --color-sage-soft: var(--green-tint);
+
+  /* radii: 16px cards · 12px inputs · pills for chips & buttons */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.625rem;
+  --radius-xl: 0.75rem; /* 12px — inputs, selects */
+  --radius-2xl: 1rem; /* 16px — cards */
+  --radius-3xl: 1rem;
+  --radius-4xl: 1.5rem;
+  --radius-card: 1rem;
+  --radius-input: 0.75rem;
+
+  /* elevation */
+  --shadow-soft: var(--elev-soft);
+  --shadow-lift: var(--elev-lift);
+
+  /* motion — everything under 300ms, transform/opacity only */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
-  --dur-micro: 180ms;
-  --dur-short: 320ms;
-  --dur-medium: 600ms;
-  --dur-long: 900ms;
+  --dur-micro: 150ms;
+  --dur-short: 200ms;
+  --dur-medium: 280ms;
+  --dur-long: 300ms;
 }
 
-/* ------------------------------------------------------------------ light — "Heritage Editorial"
-   paper #F5F0E6 · vellum #FBF8F1 · ink #1F1D1A · forest #1E3A2F · stone #6E675C
-   antique gold #A8834A (decorative) / #7E5F2C (gold text) · hairline #D9D0BF */
+/* ------------------------------------------------------------------ light (default) */
 :root {
-  --ivory: #f5f0e6;
-  --paper: #f5f0e6;
-  --ink: #1f1d1a;
-  --emerald: #1e3a2f;
-  --forest-deep: #142821;
-  --gold: #a8834a;
-  --sage: #8f9d86;
-  --sage-soft: #e4e4d6;
+  --background: #faf8f4;
+  --foreground: #1c1c1c;
+  --card: #ffffff;
+  --card-foreground: #1c1c1c;
+  --popover: #ffffff;
+  --popover-foreground: #1c1c1c;
 
-  --background: #f5f0e6;
-  --foreground: #1f1d1a;
-  --card: #fbf8f1;
-  --card-foreground: #1f1d1a;
-  --popover: #fbf8f1;
-  --popover-foreground: #1f1d1a;
-  --primary: #1e3a2f;
-  --primary-foreground: #f5f0e6;
-  --secondary: #ece5d7;
-  --secondary-foreground: #1f1d1a;
-  --muted: #ece5d7;
-  --muted-foreground: #6e675c; /* 4.9:1 on paper — AA for small text */
-  --accent: #ece5d7;
-  --accent-foreground: #1f1d1a;
-  --destructive: #9b2c1f;
-  --border: #d9d0bf;
-  --input: #cfc5b2;
-  --ring: #a8834a;
-  --brand-text: #1e3a2f;
-  --gold-text: #7e5f2c; /* 5.2:1 on paper */
-  --success: #2f6b4f;
-  --radius: 0.25rem;
-  /* Fine paper grain (~5% ink noise), painted as part of the page background. */
-  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .12 0 0 0 0 .1 0 0 0 0 .08 0 0 0 .6 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.09'/%3E%3C/svg%3E");
+  --primary: #1f6f4a; /* 6.1:1 with white */
+  --primary-hover: #185a3c;
+  --primary-foreground: #ffffff;
+  --green-tint: #e8f3ec;
+  --green-soft: #b9d8c5;
+
+  --saffron: #f2a33a; /* fills only: CTA, deal badges (8.2:1 with #1C1C1C text) */
+  --saffron-hover: #e8942a;
+  --saffron-foreground: #1c1c1c;
+  --saffron-ink: #a85a00; /* saffron for text on white — 5.1:1 */
+  --saffron-tint: #fdf0dc;
+
+  --secondary: #f3f0ea;
+  --secondary-foreground: #1c1c1c;
+  --muted: #f3f0ea;
+  --muted-foreground: #6b6b6b; /* 5.0:1 on background */
+  --accent: #e8f3ec;
+  --accent-foreground: #185a3c;
+  --destructive: #c0392b;
+  --success: #1f6f4a;
+
+  --border: #ece8e1;
+  --input: #ddd7cc;
+  --ring: #1f6f4a;
+  --radius: 1rem;
+
+  --elev-soft: 0 2px 8px rgb(0 0 0 / 0.06);
+  --elev-lift: 0 14px 30px -10px rgb(0 0 0 / 0.16), 0 4px 10px rgb(0 0 0 / 0.05);
+  --glass-bg: rgb(255 255 255 / 0.82);
   color-scheme: light;
 }
 
-/* ------------------------------------------------------------------ dark — "Library at night" */
+/* ------------------------------------------------------------------ dark (optional toggle) */
 .dark {
-  --ivory: #13120f;
-  --paper: #13120f;
-  --ink: #ede6d8;
-  --emerald: #a9c8b2;
-  --background: #13120f;
-  --foreground: #ede6d8;
-  --card: #1b1a16;
-  --card-foreground: #ede6d8;
-  --popover: #1d1c17;
-  --popover-foreground: #ede6d8;
-  --primary: #a9c8b2;
-  --primary-foreground: #13120f;
-  --forest-deep: #0e1d17;
-  --secondary: #23211c;
-  --secondary-foreground: #ede6d8;
-  --muted: #23211c;
-  --muted-foreground: #a39c8e;
-  --accent: #23211c;
-  --accent-foreground: #ede6d8;
+  --background: #121412;
+  --foreground: #f1f1ee;
+  --card: #1b1e1b;
+  --card-foreground: #f1f1ee;
+  --popover: #1e211e;
+  --popover-foreground: #f1f1ee;
+
+  --primary: #7fcfa0;
+  --primary-hover: #95dab1;
+  --primary-foreground: #0f1a13;
+  --green-tint: #1b2a21;
+  --green-soft: #2f4a3a;
+
+  --saffron: #f2a33a;
+  --saffron-hover: #f5b65a;
+  --saffron-foreground: #1c1c1c;
+  --saffron-ink: #f5b65a;
+  --saffron-tint: #33281a;
+
+  --secondary: #242824;
+  --secondary-foreground: #f1f1ee;
+  --muted: #242824;
+  --muted-foreground: #a3a39e;
+  --accent: #1b2a21;
+  --accent-foreground: #95dab1;
   --destructive: #ef8b72;
-  --border: #2e2b24;
-  --input: #3a362d;
-  --ring: #c9a66b;
-  --brand-text: #a9c8b2;
-  --gold: #c9a66b;
-  --gold-text: #d4b57e;
-  --sage: #7f8e77;
-  --sage-soft: #222a22;
-  --success: #8fc7a6;
-  --shadow-soft: 0 1px 2px rgb(0 0 0 / 0.3), 0 8px 20px -12px rgb(0 0 0 / 0.6);
-  --shadow-lift: 0 2px 4px rgb(0 0 0 / 0.3), 0 22px 44px -18px rgb(0 0 0 / 0.7);
-  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .95 0 0 0 0 .92 0 0 0 0 .85 0 0 0 .6 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.05'/%3E%3C/svg%3E");
+  --success: #7fcfa0;
+
+  --border: #2a2e2a;
+  --input: #383d38;
+  --ring: #7fcfa0;
+
+  --elev-soft: 0 2px 8px rgb(0 0 0 / 0.35);
+  --elev-lift: 0 16px 34px -10px rgb(0 0 0 / 0.6), 0 4px 10px rgb(0 0 0 / 0.3);
+  --glass-bg: rgb(18 20 18 / 0.8);
   color-scheme: dark;
 }
 
@@ -146,35 +175,25 @@
   }
   body {
     @apply bg-background text-foreground antialiased;
-    background-image: var(--grain);
     font-size: 0.9375rem;
-    line-height: 1.65;
-    text-rendering: optimizeLegibility;
+    line-height: 1.6;
   }
   h1,
   h2,
   h3,
   .font-heading {
-    font-family: var(--font-heading);
-    letter-spacing: -0.012em;
-    font-weight: 500;
-    line-height: 1.06;
+    font-family: var(--font-sans);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
     text-wrap: balance;
-  }
-  /* Cormorant defaults to old-style figures; lining figures keep numbers (prices, model years) level. */
-  h1,
-  h2,
-  h3,
-  .font-heading,
-  .font-serif {
-    font-variant-numeric: lining-nums proportional-nums;
   }
   button:not(:disabled),
   [role="button"]:not(:disabled) {
     cursor: pointer;
   }
   ::selection {
-    background: color-mix(in oklab, var(--gold) 35%, transparent);
+    background: color-mix(in oklab, var(--primary) 22%, transparent);
   }
   :focus-visible {
     outline-color: var(--ring);
@@ -183,49 +202,39 @@
 
 @layer utilities {
   .container-page {
-    @apply mx-auto w-full max-w-[1240px] px-5 sm:px-8;
+    @apply mx-auto w-full max-w-[1240px] px-4 sm:px-6 lg:px-8;
   }
   .shadow-soft {
-    box-shadow: var(--shadow-soft);
+    box-shadow: var(--elev-soft);
   }
   .shadow-lift {
-    box-shadow: var(--shadow-lift);
+    box-shadow: var(--elev-lift);
   }
+  /* Sticky header surface: white with a blur. */
   .glass {
-    background: color-mix(in oklab, var(--background) 95%, transparent);
-    backdrop-filter: saturate(1.4) blur(18px);
-    -webkit-backdrop-filter: saturate(1.4) blur(18px);
+    background: var(--glass-bg);
+    backdrop-filter: saturate(1.6) blur(16px);
+    -webkit-backdrop-filter: saturate(1.6) blur(16px);
   }
-  /* Small uppercase label with a fine leading rule: "— JUST IN" */
+  /* Small green label above a heading. */
   .eyebrow {
-    @apply inline-flex items-center gap-3 text-[0.66rem] leading-[1.5] font-semibold tracking-[0.22em] text-gold-text uppercase sm:text-[0.68rem] sm:tracking-[0.28em];
+    @apply inline-flex items-center gap-1.5 rounded-full bg-green-tint px-3 py-1 text-xs leading-none font-semibold text-primary;
   }
-  .eyebrow::before {
-    content: "";
-    width: 1.75rem;
-    height: 1px;
-    background: currentColor;
-    opacity: 0.7;
-  }
-  /* Elegant hover underline that draws from the left. */
   .link-underline {
-    background-image: linear-gradient(currentColor, currentColor);
-    background-size: 0% 1px;
-    background-position: 0 100%;
-    background-repeat: no-repeat;
-    transition: background-size var(--dur-short) var(--ease-out), color var(--dur-micro) ease;
+    text-decoration-line: underline;
+    text-decoration-color: transparent;
+    text-underline-offset: 4px;
+    transition: text-decoration-color var(--dur-short) ease, color var(--dur-micro) ease;
   }
   .link-underline:hover,
   .link-underline:focus-visible,
   .link-underline[aria-current="page"] {
-    background-size: 100% 1px;
+    text-decoration-color: currentColor;
   }
-  /* Fine divider rule. */
   .rule {
     height: 1px;
     background: var(--border);
   }
-  /* Entrance animation used by the hero (CSS so it starts before JS hydrates). */
   .animate-rise {
     animation: rise var(--dur-long) var(--ease-out) both;
     animation-delay: var(--delay, 0ms);
@@ -234,43 +243,45 @@
     animation: fade-in var(--dur-medium) var(--ease-out) both;
     animation-delay: var(--delay, 0ms);
   }
-  /* Card / tile hover: gentle lift + image zoom (transform only). */
+  /* Card hover: lift 4px + stronger shadow. */
   .lift {
-    transition: transform var(--dur-short) var(--ease-out);
+    transition:
+      transform var(--dur-short) var(--ease-out),
+      box-shadow var(--dur-short) var(--ease-out);
   }
-  .lift:hover {
-    transform: translateY(-4px);
+  @media (hover: hover) {
+    .lift:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--elev-lift);
+    }
   }
   .zoom-img img {
-    transition: transform 700ms var(--ease-out);
+    transition: transform 300ms var(--ease-out);
   }
   .group:hover .zoom-img img,
   .zoom-img:hover img {
-    transform: scale(1.04);
+    transform: scale(1.03);
   }
-  /* Prices: the most important number on the page — crisp sans, lining + tabular figures. */
+  /* Prices: bold, tabular figures, saffron. */
   .price {
     font-family: var(--font-sans);
     font-weight: 700;
-    letter-spacing: -0.02em;
-    font-variant-numeric: lining-nums tabular-nums;
-  }
-  /* Display headline scale (h1 on landing/auth). */
-  .display {
-    font-family: var(--font-heading);
-    font-weight: 500;
-    letter-spacing: -0.02em;
-    line-height: 0.98;
-    font-variant-numeric: lining-nums;
-  }
-  /* Large italic serif numerals: 01 / 02 / 03 and impact stats. */
-  .numeral {
-    font-family: var(--font-heading);
-    font-style: italic;
-    font-weight: 400;
-    line-height: 0.9;
     letter-spacing: -0.01em;
-    font-variant-numeric: lining-nums proportional-nums;
+    font-variant-numeric: tabular-nums;
+    color: var(--saffron-ink);
+  }
+  .display {
+    font-family: var(--font-sans);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.08;
+  }
+  .numeral {
+    font-family: var(--font-sans);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
   }
   .hairline {
     @apply border border-border;
@@ -299,13 +310,8 @@
   position: absolute;
   inset: 0;
   transform: translateX(-100%);
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    color-mix(in oklab, var(--card) 70%, transparent) 50%,
-    transparent 100%
-  );
-  animation: shimmer 1.6s ease-in-out infinite;
+  background: linear-gradient(90deg, transparent 0%, color-mix(in oklab, var(--card) 75%, transparent) 50%, transparent 100%);
+  animation: shimmer 1.4s ease-in-out infinite;
 }
 @keyframes shimmer {
   100% {
@@ -313,11 +319,10 @@
   }
 }
 
-/* Entrance + page-transition keyframes (opacity/transform only). */
 @keyframes rise {
   from {
     opacity: 0;
-    transform: translateY(16px);
+    transform: translateY(12px);
   }
   to {
     opacity: 1;
@@ -334,21 +339,7 @@
 }
 /* Soft page transition: each route's content fades in (app/template.tsx). */
 .page-fade {
-  animation: fade-in 260ms ease-out both;
-}
-
-/* Slow drifting hero glow */
-@keyframes drift {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0) scale(1);
-  }
-  50% {
-    transform: translate3d(2%, -3%, 0) scale(1.06);
-  }
-}
-.animate-drift {
-  animation: drift 18s ease-in-out infinite;
+  animation: fade-in 220ms ease-out both;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -369,7 +360,7 @@
 }
 /* Light mode: quiet the default OSM colours (saturated yellow roads, pink zones) toward the paper palette. */
 .reuse-map .leaflet-tile-pane {
-  filter: saturate(0.4) sepia(0.22) brightness(1.02) contrast(0.93);
+  filter: saturate(0.75) brightness(1.02);
 }
 /* Dark mode: OSM only publishes light raster tiles, so invert them to match the dark theme. */
 .dark .reuse-map .leaflet-tile-pane {

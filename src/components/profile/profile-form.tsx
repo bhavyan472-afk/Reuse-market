@@ -83,7 +83,7 @@ export function ProfileForm({ userId, defaultValues }: { userId: string; default
         <div className="relative">
           <UserAvatar name={fullName} src={avatarUrl} className="size-24 text-3xl" />
           {avatarUploading && (
-            <span className="absolute inset-0 grid place-items-center rounded-full bg-ink/50 text-ivory">
+            <span className="absolute inset-0 grid place-items-center rounded-full bg-black/50 text-white">
               <Loader2 className="size-6 animate-spin" />
             </span>
           )}
@@ -139,7 +139,7 @@ export function ProfileForm({ userId, defaultValues }: { userId: string; default
       <section className="space-y-5 rounded-3xl border border-border bg-card p-6 sm:p-8">
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div>
-            <h2 className="font-serif text-2xl">Saved location</h2>
+            <h2 className="text-xl font-bold">Saved location</h2>
             <p className="mt-1 text-sm text-muted-foreground">
               Used to show distances when your device location isn&apos;t available, and pre-filled on new listings.
             </p>

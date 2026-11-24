@@ -20,7 +20,7 @@ export function Pagination({ filters, totalPages }: { filters: MarketFilters; to
   const href = (page: number) => `/marketplace${buildMarketQuery({ ...filters, page })}`;
   const current = Math.min(filters.page, totalPages);
   const base =
-    "inline-flex h-10 min-w-10 items-center justify-center rounded-[3px] border border-border bg-card px-3 text-sm transition-colors hover:border-foreground/25";
+    "inline-flex h-10 min-w-10 items-center justify-center rounded-full border border-border bg-card px-3 text-sm transition-colors hover:border-foreground/25";
 
   return (
     <nav aria-label="Pagination" className="flex items-center justify-center gap-1.5 pt-10">

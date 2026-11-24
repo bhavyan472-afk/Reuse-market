@@ -4,18 +4,20 @@ import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import { FadeIn } from "./fade-in";
 
-/** Editorial section heading: ruled eyebrow, large serif title, optional underlined "view all" link. */
+/** Section heading: bold sans title, optional subline, optional "See all" link. */
 export function SectionHeading({
   id,
   eyebrow,
   title,
+  description,
   action,
   align = "left",
   className,
 }: {
   id?: string;
-  eyebrow: string;
+  eyebrow?: string;
   title: ReactNode;
+  description?: ReactNode;
   action?: { label: string; href: string };
   align?: "left" | "center";
   className?: string;
@@ -23,30 +25,32 @@ export function SectionHeading({
   return (
     <FadeIn
       className={cn(
-        "flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between",
-        align === "center" && "items-center text-center sm:flex-col sm:items-center",
+        "flex items-end justify-between gap-4",
+        align === "center" && "flex-col items-center text-center",
         className,
       )}
     >
-      <div className={cn("max-w-2xl", align === "center" && "mx-auto")}>
-        <p className="eyebrow">{eyebrow}</p>
-        <h2 id={id} className="mt-4 font-serif text-[2.4rem] leading-[1.02] sm:text-[3.4rem]">
+      <div className={cn("min-w-0 max-w-2xl", align === "center" && "mx-auto")}>
+        {eyebrow && <p className="eyebrow mb-3">{eyebrow}</p>}
+        <h2 id={id} className="text-[1.375rem] leading-tight font-bold sm:text-[1.75rem]">
           {title}
         </h2>
+        {description && <p className="mt-1.5 text-sm text-muted-foreground sm:text-[0.95rem]">{description}</p>}
       </div>
       {action && (
         <Link
           href={action.href}
-          className="link-underline inline-flex shrink-0 items-center gap-2 pb-1 text-[0.72rem] font-semibold tracking-[0.18em] uppercase outline-none focus-visible:ring-3 focus-visible:ring-ring/40"
+          className="group inline-flex shrink-0 items-center gap-1 rounded-full px-1 py-1 text-sm font-semibold text-primary outline-none hover:text-primary-hover focus-visible:ring-3 focus-visible:ring-ring/40"
         >
-          {action.label} <ArrowRight className="size-3.5" aria-hidden />
+          {action.label}
+          <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" aria-hidden />
         </Link>
       )}
     </FadeIn>
   );
 }
 
-/** Italic gold accent word inside a serif heading. */
+/** Highlighted word inside a heading (green). */
 export function Accent({ children }: { children: ReactNode }) {
-  return <em className="font-normal text-gold-text italic">{children}</em>;
+  return <span className="text-primary">{children}</span>;
 }

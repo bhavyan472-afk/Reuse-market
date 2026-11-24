@@ -40,7 +40,7 @@ export function ForgotPasswordForm() {
         <span className="mx-auto grid size-14 place-items-center rounded-2xl bg-accent text-gold-text">
           <MailCheck className="size-6" />
         </span>
-        <h2 className="font-serif text-2xl">Check your email</h2>
+        <h2 className="text-xl font-bold">Check your email</h2>
         <p className="text-sm leading-relaxed text-muted-foreground">
           If an account exists for <strong className="text-foreground">{sentTo}</strong>, you&apos;ll get a link to choose a
           new password. It expires in one hour.

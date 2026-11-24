@@ -77,7 +77,7 @@ export function ReportDialog({ listingId, sellerId }: { listingId: string; selle
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className="rounded-3xl sm:max-w-md">
           <DialogHeader>
-            <DialogTitle className="font-serif text-2xl font-normal">Report this listing</DialogTitle>
+            <DialogTitle className="text-xl font-bold">Report this listing</DialogTitle>
             <DialogDescription>Reports are anonymous. Listings with several reports are hidden automatically.</DialogDescription>
           </DialogHeader>
           <div role="radiogroup" aria-label="Reason" className="grid gap-2">

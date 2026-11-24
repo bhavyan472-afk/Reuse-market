@@ -1,56 +1,52 @@
-import { Camera, Handshake, MessagesSquare } from "lucide-react";
+import { Camera, ChevronRight, Handshake, MessagesSquare } from "lucide-react";
 import { FadeIn } from "@/components/shared/fade-in";
+import { SectionHeading } from "@/components/shared/section-heading";
 
 const STEPS = [
   {
     icon: Camera,
     title: "List",
-    body: "Snap up to six photos, set a fair price in rupees and drop a pin where you'd like to meet. It takes about two minutes.",
+    body: "Snap a few photos, set a fair price in rupees and pick a meeting spot. Takes about two minutes — and it's free.",
   },
   {
     icon: MessagesSquare,
-    title: "Connect",
-    body: "Buyers message you in-app, or call and WhatsApp if you choose to share your number. No middlemen, no commission.",
+    title: "Chat",
+    body: "Buyers message you in the app, or on WhatsApp if you share your number. Agree on a price and a time.",
   },
   {
     icon: Handshake,
-    title: "Meet & Exchange",
-    body: "Meet somewhere public — a campus gate, a café, a metro station. Inspect the item, pay in person, and give it a second life.",
+    title: "Meet & pay",
+    body: "Meet somewhere public — a campus gate, café or metro station. Check the item, then pay in person by UPI or cash.",
   },
 ];
 
 export function HowItWorks() {
   return (
-    <section id="how-it-works" aria-labelledby="how-heading" className="grid scroll-mt-28 gap-12 lg:grid-cols-12 lg:gap-10">
-      {/* Left: heading column (sticky on desktop) */}
-      <FadeIn className="lg:col-span-4">
-        <div className="lg:sticky lg:top-32">
-          <p className="eyebrow">How it works</p>
-          <h2 id="how-heading" className="mt-5 font-serif text-[2.6rem] leading-[1] sm:text-[3.6rem]">
-            Three quiet <em className="font-normal text-gold-text italic">steps.</em>
-          </h2>
-          <p className="mt-6 max-w-sm text-muted-foreground">
-            No middlemen and no commission — just neighbours passing on good things, the old-fashioned way.
-          </p>
-        </div>
-      </FadeIn>
-
-      {/* Right: ruled steps with large italic numerals */}
-      <ol className="border-b border-border lg:col-span-8">
+    <section id="how-it-works" aria-labelledby="how-heading" className="scroll-mt-24 space-y-6">
+      <SectionHeading id="how-heading" title="How it works" description="Three simple steps. No middlemen, no commission." />
+      <ol className="grid gap-3 sm:gap-4 md:grid-cols-3">
         {STEPS.map((step, i) => (
-          <li key={step.title}>
-            <FadeIn delay={i * 0.1} className="grid grid-cols-[4.5rem_1fr] gap-5 border-t border-border py-9 sm:grid-cols-[7.5rem_1fr] sm:gap-8 sm:py-11">
-              <span className="numeral text-[3.6rem] text-gold sm:text-[6rem]" aria-hidden>
-                0{i + 1}
-              </span>
-              <div className="pt-1 sm:pt-3">
-                <div className="flex items-center gap-3">
-                  <step.icon className="size-[18px] text-gold-text" strokeWidth={1.5} aria-hidden />
-                  <h3 className="font-serif text-[1.9rem] leading-none sm:text-[2.2rem]">{step.title}</h3>
+          <li key={step.title} className="relative">
+            <FadeIn delay={i * 0.06} className="h-full">
+              <div className="flex h-full gap-4 rounded-card border border-border bg-card p-5 shadow-soft md:flex-col md:p-6">
+                <span className="relative grid size-12 shrink-0 place-items-center rounded-2xl bg-green-tint text-primary">
+                  <step.icon className="size-6" strokeWidth={1.75} aria-hidden />
+                  <span className="absolute -top-1.5 -right-1.5 grid size-5 place-items-center rounded-full bg-saffron text-[0.7rem] font-bold text-saffron-foreground">
+                    {i + 1}
+                  </span>
+                </span>
+                <div>
+                  <h3 className="text-lg font-bold">{step.title}</h3>
+                  <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{step.body}</p>
                 </div>
-                <p className="mt-4 max-w-lg leading-relaxed text-muted-foreground">{step.body}</p>
               </div>
             </FadeIn>
+            {i < STEPS.length - 1 && (
+              <ChevronRight
+                className="absolute top-1/2 -right-3.5 z-10 hidden size-5 -translate-y-1/2 text-muted-foreground md:block"
+                aria-hidden
+              />
+            )}
           </li>
         ))}
       </ol>

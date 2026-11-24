@@ -33,14 +33,14 @@ export function ImageGallery({ images, title, sold }: { images: { id: string; ur
   }, [open, go]);
 
   if (count === 0) {
-    return <div className="grid aspect-[4/3] place-items-center rounded-3xl border border-border bg-muted font-serif text-muted-foreground">No photos</div>;
+    return <div className="grid aspect-[4/3] place-items-center rounded-card border border-border bg-muted text-muted-foreground">No photos</div>;
   }
 
   const current = images[index];
 
   return (
     <div className="space-y-3">
-      <div className="group relative aspect-[4/3] overflow-hidden rounded-3xl border border-border bg-muted">
+      <div className="group relative aspect-[4/3] overflow-hidden rounded-card border border-border bg-muted shadow-soft">
         <button
           type="button"
           onClick={() => setOpen(true)}
@@ -92,7 +92,7 @@ export function ImageGallery({ images, title, sold }: { images: { id: string; ur
                 aria-label={`Show photo ${i + 1}`}
                 aria-current={i === index}
                 className={cn(
-                  "relative block size-20 overflow-hidden rounded-2xl border-2 transition-all outline-none focus-visible:ring-3 focus-visible:ring-ring/50 sm:size-24",
+                  "relative block size-16 overflow-hidden rounded-xl border-2 transition-all outline-none focus-visible:ring-3 focus-visible:ring-ring/50 sm:size-20",
                   i === index ? "border-primary" : "border-transparent opacity-70 hover:opacity-100",
                 )}
               >
@@ -110,7 +110,7 @@ export function ImageGallery({ images, title, sold }: { images: { id: string; ur
           if (!o) setZoomed(false);
         }}
       >
-        <DialogContent className="max-w-[min(96vw,1200px)] gap-0 overflow-hidden border-0 bg-ink p-0 sm:max-w-[min(96vw,1200px)] sm:rounded-3xl">
+        <DialogContent className="max-w-[min(96vw,1200px)] gap-0 overflow-hidden border-0 bg-black p-0 sm:max-w-[min(96vw,1200px)] sm:rounded-3xl">
           <DialogTitle className="sr-only">{title}</DialogTitle>
           <DialogDescription className="sr-only">
             Photo {index + 1} of {count}. Use the arrow keys to navigate and click to zoom.
@@ -132,7 +132,7 @@ export function ImageGallery({ images, title, sold }: { images: { id: string; ur
               style={{ transform: zoomed ? "scale(2.2)" : "scale(1)", transformOrigin: origin }}
             />
           </div>
-          <div className="flex items-center justify-between gap-3 bg-ink px-4 py-3 text-ivory">
+          <div className="flex items-center justify-between gap-3 bg-black px-4 py-3 text-white">
             <button
               type="button"
               onClick={() => go(-1)}

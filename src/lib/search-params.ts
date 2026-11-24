@@ -1,4 +1,4 @@
-import { CATEGORY_VALUES, CONDITION_VALUES, DISTANCE_OPTIONS, SORT_OPTIONS, type SortOption } from "@/lib/constants";
+import { CATEGORY_VALUES, CONDITION_VALUES, DEFAULT_SORT, DISTANCE_OPTIONS, SORT_OPTIONS, type SortOption } from "@/lib/constants";
 import type { ListingCategory, ListingCondition } from "@/lib/supabase/database.types";
 
 export type MarketFilters = {
@@ -40,8 +40,8 @@ export function parseMarketFilters(params: RawParams): MarketFilters {
   const minPrice = num(first(params.min), { min: 0, max: 10_000_000 });
   const maxPrice = num(first(params.max), { min: 0, max: 10_000_000 });
 
-  let parsedSort: SortOption = SORT_OPTIONS.some((s) => s.value === sort) ? (sort as SortOption) : "newest";
-  if (parsedSort === "nearest" && !hasPoint) parsedSort = "newest";
+  let parsedSort: SortOption = SORT_OPTIONS.some((s) => s.value === sort) ? (sort as SortOption) : DEFAULT_SORT;
+  if (parsedSort === "nearest" && !hasPoint) parsedSort = DEFAULT_SORT;
 
   return {
     q: first(params.q).trim().slice(0, 100),
@@ -73,7 +73,7 @@ export function buildMarketQuery(filters: Partial<MarketFilters>): string {
     sp.set("lng", filters.lng.toFixed(4));
   }
   if (filters.radius) sp.set("radius", String(filters.radius));
-  if (filters.sort && filters.sort !== "newest") sp.set("sort", filters.sort);
+  if (filters.sort && filters.sort !== DEFAULT_SORT) sp.set("sort", filters.sort);
   if (filters.page && filters.page > 1) sp.set("page", String(filters.page));
   if (filters.view === "map") sp.set("view", "map");
   const s = sp.toString();

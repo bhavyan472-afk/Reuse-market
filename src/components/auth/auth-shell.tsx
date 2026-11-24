@@ -11,7 +11,7 @@ export function AuthShell({ title, subtitle, children }: { title: string; subtit
           <h1 className="display pt-3 text-[2.4rem] sm:text-5xl">{title}</h1>
           {subtitle && <p className="text-sm leading-relaxed text-muted-foreground">{subtitle}</p>}
         </div>
-        <div className="rounded-3xl border border-border bg-card p-6 sm:p-8">{children}</div>
+        <div className="rounded-card border border-border bg-card p-6 shadow-soft sm:p-8">{children}</div>
       </div>
       <div className="relative hidden h-[min(680px,calc(100dvh-8rem))] min-h-[520px] overflow-hidden rounded-3xl lg:block">
         <Image
@@ -22,9 +22,9 @@ export function AuthShell({ title, subtitle, children }: { title: string; subtit
           className="object-cover"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-forest-deep/90 via-forest-deep/25 to-transparent" />
-        <blockquote className="absolute inset-x-10 bottom-10 text-ivory">
-          <p className="font-serif text-[1.9rem] leading-snug text-balance text-white">“Sold my first-year textbooks in a day — to a junior in the next hostel.”</p>
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0F3D27]/90 via-[#0F3D27]/25 to-transparent" />
+        <blockquote className="absolute inset-x-10 bottom-10 text-white">
+          <p className="text-[1.5rem] font-semibold leading-snug text-balance text-white">“Sold my first-year textbooks in a day — to a junior in the next hostel.”</p>
           <footer className="mt-4 text-sm text-white/70">— A ReUse Market seller, Pune</footer>
         </blockquote>
       </div>

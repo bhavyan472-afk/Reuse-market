@@ -20,6 +20,10 @@ export type ListingCardData = {
   created_at: string;
   cover_url: string | null;
   distance_km?: number | null;
+  /** Optional: price when bought new. Cards show "Save ₹X vs new" only when this is known. */
+  original_price?: number | null;
+  /** Optional: seller has a verified email. Cards show a tick only when this is known. */
+  seller_verified?: boolean | null;
 };
 
 export type SellerSummary = Pick<
@@ -28,6 +32,8 @@ export type SellerSummary = Pick<
 >;
 
 export type ListingDetail = ListingRow & {
+  /** Optional: price when bought new (shown as "Save ₹X vs new" when known). */
+  original_price?: number | null;
   images: { id: string; url: string; position: number }[];
   seller: SellerSummary;
   sellerActiveCount: number;

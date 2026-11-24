@@ -11,6 +11,11 @@ export function formatPrice(value: number): string {
   return inr.format(value);
 }
 
+/** Always a rupee amount with Indian digit grouping (₹1,00,000) — never "Free". */
+export function formatRupees(value: number): string {
+  return inr.format(value);
+}
+
 export function timeAgo(date: string | Date): string {
   const d = new Date(date);
   if (Date.now() - d.getTime() < 60_000) return "just now";

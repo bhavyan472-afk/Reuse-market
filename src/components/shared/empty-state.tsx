@@ -5,16 +5,15 @@ import { cn } from "@/lib/utils";
 
 function Illustration() {
   return (
-    <svg viewBox="0 0 200 140" className="h-32 w-auto" aria-hidden>
-      <ellipse cx="100" cy="124" rx="70" ry="8" fill="var(--muted)" />
-      <rect x="52" y="44" width="96" height="72" rx="14" fill="var(--card)" stroke="var(--border)" strokeWidth="2" />
-      <path d="M52 62h96" stroke="var(--border)" strokeWidth="2" />
-      <path d="M78 44c0-12 10-20 22-20s22 8 22 20" fill="none" stroke="var(--gold)" strokeWidth="3" strokeLinecap="round" />
-      <circle cx="84" cy="86" r="4" fill="var(--emerald)" opacity=".8" />
-      <circle cx="116" cy="86" r="4" fill="var(--emerald)" opacity=".8" />
-      <path d="M88 100c7 5 17 5 24 0" fill="none" stroke="var(--emerald)" strokeWidth="2.5" strokeLinecap="round" opacity=".8" />
-      <path d="M158 30l4 8 8 4-8 4-4 8-4-8-8-4 8-4z" fill="var(--gold)" opacity=".7" />
-      <path d="M36 48l2.5 5 5 2.5-5 2.5-2.5 5-2.5-5-5-2.5 5-2.5z" fill="var(--gold)" opacity=".5" />
+    <svg viewBox="0 0 200 140" className="h-28 w-auto" aria-hidden>
+      <ellipse cx="100" cy="126" rx="66" ry="7" fill="var(--muted)" />
+      <rect x="56" y="48" width="88" height="70" rx="16" fill="var(--card)" stroke="var(--border)" strokeWidth="2" />
+      <path d="M80 48c0-11 9-19 20-19s20 8 20 19" fill="none" stroke="var(--primary)" strokeWidth="3.5" strokeLinecap="round" />
+      <circle cx="86" cy="84" r="4" fill="var(--primary)" />
+      <circle cx="114" cy="84" r="4" fill="var(--primary)" />
+      <path d="M90 98c6 5 14 5 20 0" fill="none" stroke="var(--primary)" strokeWidth="3" strokeLinecap="round" />
+      <path d="M150 26c8 0 14 6 14 14-8 0-14-6-14-14z" fill="var(--green-soft)" />
+      <circle cx="40" cy="52" r="5" fill="var(--saffron)" opacity=".8" />
     </svg>
   );
 }
@@ -35,13 +34,13 @@ export function EmptyState({
   return (
     <div
       className={cn(
-        "flex flex-col items-center justify-center gap-4 rounded-3xl border border-border bg-card px-6 py-14 text-center sm:py-20",
+        "flex flex-col items-center justify-center gap-4 rounded-card border border-border bg-card px-6 py-12 shadow-soft text-center sm:py-20",
         className,
       )}
     >
       <Illustration />
       <div className="max-w-md space-y-2">
-        <h2 className="font-serif text-2xl">{title}</h2>
+        <h2 className="text-xl font-bold">{title}</h2>
         {description && <p className="text-sm leading-relaxed text-muted-foreground">{description}</p>}
       </div>
       {action && (

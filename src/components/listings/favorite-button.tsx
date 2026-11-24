@@ -31,19 +31,21 @@ export function FavoriteButton({
       }}
       className={cn(
         "group/fav items-center justify-center rounded-full font-semibold transition-[background-color,color,transform] duration-200 outline-none focus-visible:ring-3 focus-visible:ring-ring/40 active:scale-95 disabled:opacity-70",
-        variant === "overlay" && "grid size-9 bg-card/92 text-foreground backdrop-blur-sm hover:bg-card",
-        variant === "inline" && "inline-flex h-10 gap-2 border border-border bg-card px-4 text-sm hover:bg-secondary/60",
+        variant === "overlay" && "grid size-11 place-items-center [&>span]:grid [&>span]:size-8 [&>span]:place-items-center [&>span]:rounded-full [&>span]:bg-card/95 [&>span]:shadow-soft [&>span]:backdrop-blur-sm hover:[&>span]:bg-card",
+        variant === "inline" && "inline-flex h-11 gap-2 border border-border bg-card px-5 text-sm hover:bg-secondary",
         variant === "quiet" && "inline-flex h-10 gap-2 px-3 text-sm text-foreground hover:bg-secondary",
         className,
       )}
     >
-      <Heart
-        className={cn(
-          "size-[18px] transition-[color,fill,transform] duration-200",
-          saved ? "scale-110 fill-[#9C5B3F] text-[#9C5B3F]" : "group-hover/fav:text-[#9C5B3F]",
-        )}
-        aria-hidden
-      />
+      <span className={variant === "overlay" ? undefined : "contents"}>
+        <Heart
+          className={cn(
+            "size-[17px] transition-[color,fill,transform] duration-200",
+            saved ? "scale-110 fill-[#E5484D] text-[#E5484D]" : "group-hover/fav:text-[#E5484D]",
+          )}
+          aria-hidden
+        />
+      </span>
       {withLabel && <span>{saved ? "Saved" : "Save"}</span>}
     </button>
   );
