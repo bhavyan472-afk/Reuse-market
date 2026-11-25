@@ -78,20 +78,20 @@ const macbook = "b2000000-0000-4000-8000-000000000004"; // owned by A
 
 // ---- public reads / search (anon)
 await asUser(null);
-ok("anon sees all 24 listings", (await q("select count(*)::int c from listings"))[0].c === 24);
+ok("anon sees all 82 listings", (await q("select count(*)::int c from listings"))[0].c === 82);
 ok("profiles created by trigger", (await q("select count(*)::int c from profiles where email_verified"))[0].c === 4);
-let r = await q("select * from search_listings()");
-ok("default search excludes sold (22)", r.length === 22 && Number(r[0].total_count) === 22);
-r = await q("select * from search_listings(p_include_sold => true)");
-ok("include sold returns 24", r.length === 24);
+let r = await q("select * from search_listings(p_limit => 100)");
+ok("default search excludes sold (80)", r.length === 80 && Number(r[0].total_count) === 80);
+r = await q("select * from search_listings(p_include_sold => true, p_limit => 100)");
+ok("include sold returns 82", r.length === 82);
 r = await q("select title from search_listings(p_query => 'macbook')");
-ok("keyword 'macbook' → 2", r.length === 2, r.map((x) => x.title).join(" | "));
+ok("keyword 'macbook' → 4", r.length === 4, r.map((x) => x.title).join(" | "));
 r = await q("select title from search_listings(p_query => 'mac')");
 ok("partial keyword 'mac' matches titles", r.length >= 2);
 r = await q("select title from search_listings(p_query => 'battery')");
 ok("full-text hits description ('battery')", r.length >= 3, String(r.length));
-r = await q("select category from search_listings(p_category => 'laptops')");
-ok("category laptops → 3", r.length === 3);
+r = await q("select category from search_listings(p_category => 'laptops', p_limit => 50)");
+ok("category laptops → 15", r.length === 15);
 r = await q("select price from search_listings(p_min_price => 1000, p_max_price => 10000)");
 ok("price range 1000–10000", r.length > 0 && r.every((x) => x.price >= 1000 && x.price <= 10000), String(r.length));
 r = await q("select condition from search_listings(p_conditions => array['like_new']::listing_condition[])");
@@ -107,7 +107,7 @@ ok("nearest sort ascending", r.every((x, i) => i === 0 || r[i - 1].distance_km <
 r = await q("select round(haversine_km(19.0760, 72.8777, 18.5204, 73.8567)::numeric, 0) d");
 ok("haversine Mumbai→Pune ≈ 120 km", Math.abs(Number(r[0].d) - 120) <= 3, String(r[0].d));
 r = await q("select * from search_listings(p_limit => 5, p_offset => 5)");
-ok("pagination offset/limit", r.length === 5 && Number(r[0].total_count) === 22);
+ok("pagination offset/limit", r.length === 5 && Number(r[0].total_count) === 80);
 
 await q("select increment_listing_views($1)", [macbook]);
 ok("anon view increment", (await q("select views from listings where id = $1", [macbook]))[0].views === 213);
@@ -136,13 +136,13 @@ await expectError("7th image rejected", () => q("insert into listing_images (lis
 r = await q("update listings set status = 'sold' where id = $1 returning sold_at", [mine]);
 ok("mark sold sets sold_at", r[0].sold_at !== null);
 await asUser(null);
-ok("sold listing hidden from default search", (await q("select * from search_listings(p_query => 'Casio')")).length === 0);
+ok("sold listing hidden from default search", !(await q("select id from search_listings(p_query => 'Casio', p_limit => 50)")).some((x) => x.id === mine));
 ok("sold listing still readable (ribbon)", (await q("select status from listings where id = $1", [mine]))[0].status === "sold");
 await asUser(R);
 r = await q("update listings set status = 'available' where id = $1 returning sold_at", [mine]);
 ok("mark available clears sold_at", r[0].sold_at === null);
 await asUser(null);
-ok("available again in search", (await q("select * from search_listings(p_query => 'Casio')")).length === 1);
+ok("available again in search", (await q("select id from search_listings(p_query => 'Casio', p_limit => 50)")).some((x) => x.id === mine));
 
 // ---- favorites (private)
 await asUser(R);
